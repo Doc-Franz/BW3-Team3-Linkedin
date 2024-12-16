@@ -9,3 +9,8 @@
 .slick-next {
   margin-right: 50px;
 }
+
+.slider-card {
+  width: 95% !important;
+  height: 120px;
+}

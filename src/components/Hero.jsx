@@ -1,5 +1,5 @@
 import { Button, Col, Image, Row } from "react-bootstrap";
-import { CameraFill, Pencil, ShieldCheck } from "react-bootstrap-icons";
+import { CameraFill, Pencil, ShieldCheck, X } from "react-bootstrap-icons";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -117,8 +117,8 @@ const Hero = () => {
       </Row>
       <Row className="mt-4">
         <Slider {...settings}>
-          <Row className="mx-0">
-            <Col className="d-flex flex-column border border-light-subtle rounded p-2" style={{ width: "95%", height: "100px" }}>
+          <Row className="slider-card mx-0 border border-light-subtle rounded p-2 d-flex">
+            <Col className="d-flex flex-column ">
               <p className="mb-0">
                 <span className="fw-bold">Mostra ai recruiter che sei disponibile a lavorare:</span> sei tu a decidere chi può vedere questa informazione
               </p>
@@ -126,9 +126,12 @@ const Hero = () => {
                 Inizia
               </p>
             </Col>
+            <Col className="col-1">
+              <X className="fs-3" style={{ cursor: "pointer" }} />
+            </Col>
           </Row>
-          <Row className="mx-0">
-            <Col className="d-flex flex-column border border-light-subtle rounded p-2" style={{ width: "95%", height: "100px" }}>
+          <Row className="slider-card mx-0 border border-light-subtle rounded p-2 d-flex">
+            <Col className="d-flex flex-column ">
               <p className="mb-0">
                 <span className="fw-bold">Fai sapere che stai facendo selezione</span> e attrai candidati qualificati.
               </p>
@@ -136,15 +139,21 @@ const Hero = () => {
                 Inizia
               </p>
             </Col>
+            <Col className="col-1">
+              <X className="fs-3" style={{ cursor: "pointer" }} />
+            </Col>
           </Row>
-          <Row className="mx-0">
-            <Col className="d-flex flex-column border border-light-subtle rounded" style={{ width: "95%", height: "100px" }}>
+          <Row className="slider-card mx-0 border border-light-subtle rounded p-2 d-flex">
+            <Col className="d-flex flex-column ">
               <p className="mb-0">
                 <span className="fw-bold">Metti in risalto i tuoi servizi</span> in un&apos;apposita sezione sul tuo profilo, così sarà più facile trovarti.
               </p>
               <p className="text-primary" style={{ cursor: "pointer" }}>
                 Inizia
               </p>
+            </Col>
+            <Col className="col-1">
+              <X className="fs-3" style={{ cursor: "pointer" }} />
             </Col>
           </Row>
         </Slider>
