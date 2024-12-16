@@ -5,14 +5,14 @@ import { Link } from "react-router-dom";
 function MyNavbar() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
-      <Container fluid>
+      <Container>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Row>
             <Col className="d-flex">
               {" "}
               {/* LinkedIn Icon */}
-              <Linkedin size={30} style={{ color: "#0077b5" }} />
+              <Linkedin size={60} style={{ color: "#0077b5" }} />
               {/* Search Input */}
               <Form className="d-flex ms-3">
                 <InputGroup className="mb-3">
@@ -23,14 +23,14 @@ function MyNavbar() {
                 </InputGroup>
               </Form>
             </Col>
-            <Col>
+            <Col className="d-flex justify-content-start">
               {" "}
               {/* Navbar Links */}
               <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: "100px" }} navbarScroll>
                 <Link to="/home" style={{ textDecoration: "none" }}>
                   <Row className="d-flex flex-column align-items-center">
                     <Col className="d-flex justify-content-center">
-                      <HouseDoorFill />
+                      <HouseDoorFill style={{ width: "20px", height: "20px" }} />
                     </Col>
                     <Col>
                       <Nav.Link href="#action1">Home</Nav.Link>
@@ -40,7 +40,7 @@ function MyNavbar() {
                 <Link to="/rete" style={{ textDecoration: "none" }}>
                   <Row className="d-flex flex-column align-items-center">
                     <Col className="d-flex justify-content-center">
-                      <PeopleFill />
+                      <PeopleFill style={{ width: "20px", height: "20px" }} />
                     </Col>
                     <Col>
                       <Nav.Link href="#action2">Rete</Nav.Link>
@@ -50,7 +50,7 @@ function MyNavbar() {
                 <Link to="/lavoro" style={{ textDecoration: "none" }}>
                   <Row className="d-flex flex-column align-items-center">
                     <Col className="d-flex justify-content-center">
-                      <SuitcaseLgFill />
+                      <SuitcaseLgFill style={{ width: "20px", height: "20px" }} />
                     </Col>
                     <Col>
                       <Nav.Link href="#action3">Lavoro</Nav.Link>
@@ -60,7 +60,7 @@ function MyNavbar() {
                 <Link to="/messaggistica" style={{ textDecoration: "none" }}>
                   <Row className="d-flex flex-column align-items-center">
                     <Col className="d-flex justify-content-center">
-                      <ChatDotsFill />
+                      <ChatDotsFill style={{ width: "20px", height: "20px" }} />
                     </Col>
                     <Col>
                       <Nav.Link href="#action4">Messaggistica</Nav.Link>
@@ -70,7 +70,7 @@ function MyNavbar() {
                 <Link to="/notifiche" style={{ textDecoration: "none" }}>
                   <Row className="d-flex flex-column align-items-center">
                     <Col className="d-flex justify-content-center">
-                      <BellFill />
+                      <BellFill style={{ width: "20px", height: "20px" }} />
                     </Col>
                     <Col>
                       <Nav.Link href="#action5">Notifiche</Nav.Link>
@@ -81,7 +81,7 @@ function MyNavbar() {
                 {/* Profile Image */}
                 <Col className="d-flex flex-column align-items-center">
                   <Image
-                    style={{ height: "17px", width: "17px", objectFit: "cover" }}
+                    style={{ height: "24px", width: "24px", objectFit: "cover" }}
                     roundedCircle
                     src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" //Immagine profilo da importare dalla fetch
                   />
@@ -95,7 +95,7 @@ function MyNavbar() {
                 </Col>
               </Nav>
             </Col>
-            <Col>
+            <Col className="ms-auto">
               <Row className="d-flex flex-column ">
                 <Col className="d-flex justify-content-center">
                   <Grid3x3GapFill />
