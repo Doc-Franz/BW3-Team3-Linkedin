@@ -2,7 +2,14 @@ import { Col, Container, Form, Image, InputGroup, Nav, Navbar, NavDropdown, Row 
 import { Linkedin, Search, HouseDoorFill, PeopleFill, SuitcaseLgFill, ChatDotsFill, BellFill, Grid3x3GapFill } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 
+import { useDispatch } from "react-redux";
+import { fetchProfile } from "../redux/actions";
+
 function MyNavbar() {
+  const userId = "6551e7bbc55e7e0018f83bfb";
+
+  const dispatch = useDispatch();
+
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
@@ -84,6 +91,9 @@ function MyNavbar() {
                     style={{ height: "24px", width: "24px", objectFit: "cover" }}
                     roundedCircle
                     src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" //Immagine profilo da importare dalla fetch
+                    onClick={() => {
+                      dispatch(fetchProfile(userId));
+                    }}
                   />
                   {/* Dropdown Menu below the profile image */}
                   <NavDropdown title="Tu" id="navbarScrollingDropdown">
