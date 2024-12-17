@@ -111,8 +111,8 @@ function MyNavbar() {
                               <Image style={{ height: "50px", width: "50px", objectFit: "cover", marginRight: "10px" }} roundedCircle src={userInfo.image} />
                             )}
                             <div>
-                              <h6 className="mb-1">nome dinamico</h6>
-                              <small className="text-muted">professione dinamico</small>
+                              <h6 className="mb-1">{userInfo.name}</h6>
+                              <small className="text-muted">{userInfo.title}</small>
                             </div>
                           </div>
 
