@@ -1,0 +1,28 @@
+/* il css del footer comincia qui */
+.global-footer {
+  background-color: #f3f2ef;
+  padding: 30px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.global-footer a {
+  text-decoration: none;
+  color: #666;
+}
+
+.global-footer a:hover {
+  text-decoration: underline;
+}
+
+.global-footer .form-label {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.global-footer p {
+  margin: 20px 0 0;
+  text-align: center;
+}
+
+/* finisce  qui il footer */
