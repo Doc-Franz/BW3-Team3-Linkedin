@@ -1,0 +1,16 @@
+/* Slider */
+
+.slick-next::before,
+.slick-prev::before {
+  font-size: 40px !important;
+  color: #595957 !important;
+}
+
+.slick-next {
+  margin-right: 50px;
+}
+
+.slider-card {
+  width: 95% !important;
+  height: 120px;
+}
