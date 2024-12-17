@@ -1,10 +1,10 @@
 import { tokenAPI } from "../../assets/js/token";
 import { SET_EXPERIENCES } from "../reducers/experienceReducer";
 
-export const fetchExperiences = () => {
+export const fetchExperiences = (userId) => {
   return async (dispatch) => {
     try {
-      const response = await fetch("https://striveschool-api.herokuapp.com/api/profile/6551e7bbc55e7e0018f83bfb/experiences", {
+      const response = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences`, {
         headers: { Authorization: tokenAPI }
       });
 

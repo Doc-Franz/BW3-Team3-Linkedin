@@ -1,7 +1,5 @@
 import { Row, Col, Card, Image, Button } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { fetchExperiences } from "../redux/actions/experienceActions";
+import { useSelector } from "react-redux";
 
 const EsperienzaCard = ({ role, company, startDate, endDate, description, area, image }) => {
   return (
@@ -23,17 +21,7 @@ const EsperienzaCard = ({ role, company, startDate, endDate, description, area, 
 };
 
 const Experience = () => {
-  const dispatch = useDispatch();
   const experiences = useSelector((state) => state.experience.experiences);
-
-  useEffect(() => {
-    const getExperiences = async () => {
-      const action = await fetchExperiences();
-      dispatch(action);
-    };
-
-    getExperiences();
-  }, [dispatch]);
 
   return (
     <Card>
@@ -52,9 +40,7 @@ const Experience = () => {
           </Button>
         </div>
 
-        {experiences.map((exp) => (
-          <EsperienzaCard key={exp._id} {...exp} />
-        ))}
+        {experiences.length > 0 && experiences.map((exp) => <EsperienzaCard key={exp._id} {...exp} />)}
         <Button className="text-center btnExp btnShowExp rounded w-100 pb-2" variant="transparent">
           Mostra tutte le esperienze (6)
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-right" viewBox="0 0 16 16">

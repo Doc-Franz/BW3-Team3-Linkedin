@@ -1,9 +1,9 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-// import heroReducer from "../reducers/heroReducer";
+import heroReducer from "../reducers/heroReducer";
 import experienceReducer from "../reducers/experienceReducer";
 
 const rootReducer = combineReducers({
-  // hero: heroReducer,
+  hero: heroReducer,
   experience: experienceReducer
 });
 
