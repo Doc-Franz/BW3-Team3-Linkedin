@@ -8,14 +8,18 @@ import { fetchExperiences } from "../redux/actions/experienceActions";
 import { useEffect } from "react";
 
 function MyNavbar() {
-  const userId = "6551e7bbc55e7e0018f83bfb";
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.hero.content);
 
   useEffect(() => {
-    dispatch(fetchProfile(userId));
-    dispatch(fetchExperiences(userId));
+    dispatch(fetchProfile());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (userInfo && userInfo._id) {
+      dispatch(fetchExperiences(userInfo._id));
+    }
+  }, [dispatch, userInfo]);
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary">

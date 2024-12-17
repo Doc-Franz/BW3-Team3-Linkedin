@@ -1,11 +1,16 @@
-import { Button, Col, Container, Image, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Image, Modal, Row } from "react-bootstrap";
 import { CameraFill, Pencil, ShieldCheck, X } from "react-bootstrap-icons";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { updateProfileHero } from "../redux/actions/profileActions";
 
 const Hero = () => {
+  const dispatch = useDispatch();
+
+  // settings dello slider
   const settings = {
     dots: true,
     infinite: true,
@@ -14,13 +19,58 @@ const Hero = () => {
     slidesToScroll: 2
   };
 
+  // stato che gestisce il modal
+  const [show, setShow] = useState(false);
+
+  // funzione che gestisce lo stato del modal
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  // selector per riempire i dati dello user
   const userInfo = useSelector((state) => state.hero.content);
-  const userExperiences = useSelector((state) => state.experience.experiences);
+  // const userExperiences = useSelector((state) => state.experience.experiences);
 
   return (
     <>
       {userInfo && (
         <Container className="pb-4 rounded" style={{ backgroundColor: "white" }}>
+          {/* modal per modificare le info del profile */}
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Modifica Presentazione</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                  <Form.Label>Nome*</Form.Label>
+                  <Form.Control type="text" autoFocus defaultValue={userInfo.name} />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                  <Form.Label>Cognome*</Form.Label>
+                  <Form.Control type="text" autoFocus defaultValue={userInfo.surname} />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                  <Form.Label>Sommario*</Form.Label>
+                  <Form.Control type="text" autoFocus defaultValue={userInfo.title} />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                  <Form.Label>Città*</Form.Label>
+                  <Form.Control type="text" autoFocus defaultValue={userInfo.area} />
+                </Form.Group>
+              </Form>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button
+                variant="primary"
+                onClick={() => {
+                  handleClose;
+                }}
+              >
+                Salva
+              </Button>
+            </Modal.Footer>
+          </Modal>
+
           <Row
             className="mt-3"
             style={{
@@ -49,7 +99,8 @@ const Hero = () => {
           </Row>
           <Row className="mt-3">
             <Col className="d-flex justify-content-end">
-              <Pencil style={{ width: "25px", height: "25px", cursor: "pointer" }} />
+              {/* all'onclick della pencil si apre il modal per gestire le info dello user  */}
+              <Pencil style={{ width: "25px", height: "25px", cursor: "pointer" }} onClick={handleShow} />
             </Col>
           </Row>
           <Row className="mt-3">
@@ -83,30 +134,24 @@ const Hero = () => {
             </Col>
             <Col className="d-flex flex-column">
               <Row className="d-flex mb-2 align-items-center">
-                <Col className="d-flex justify-content-end">
-                  {" "}
-                  <Image src={userExperiences[0].image} style={{ width: "40px", height: "40px" }} />
-                </Col>
-                <Col>
-                  {" "}
-                  <p className="fs-5 fw-semibold">{userExperiences[0].company}</p>
-                </Col>
+                <Col className="d-flex justify-content-end">{/* <Image src={userExperiences[0].image} style={{ width: "40px", height: "40px" }} /> */}</Col>
+                <Col>{/* <p className="fs-5 fw-semibold">{userExperiences[0].company}</p> */}</Col>
               </Row>
               <Row className="d-flex mb-2 align-items-center ">
-                <Col className="d-flex justify-content-end">
-                  {" "}
-                  <Image src={userExperiences[1].image} style={{ width: "40px", height: "40px" }} />
-                </Col>
-                <Col>
-                  {" "}
-                  <p className="fs-5 fw-semibold">{userExperiences[1].company}</p>
-                </Col>
+                <Col className="d-flex justify-content-end">{/* <Image src={userExperiences[1].image} style={{ width: "40px", height: "40px" }} /> */}</Col>
+                <Col>{/* <p className="fs-5 fw-semibold">{userExperiences[1].company}</p> */}</Col>
               </Row>
             </Col>
           </Row>
           <Row className="d-flex">
             <Col>
-              <Button variant="primary" className="rounded-pill mt-2 me-2 px-3">
+              <Button
+                variant="primary"
+                className="rounded-pill mt-2 me-2 px-3"
+                onClick={() => {
+                  dispatch(updateProfileHero(userInfo.id));
+                }}
+              >
                 Disponibili per
               </Button>
               <Button variant="outline-primary" className="rounded-pill mt-2 me-2 px-3">

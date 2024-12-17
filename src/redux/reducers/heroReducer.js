@@ -1,4 +1,4 @@
-import { FILL_PROFILE_HERO } from "../actions/profileActions";
+import { FILL_PROFILE_HERO, UPDATE_PROFILE_HERO } from "../actions/profileActions";
 
 const initialState = {
   content: null
@@ -10,6 +10,12 @@ const heroReducer = (state = initialState, action) => {
       return {
         ...state,
         content: action.payload
+      };
+
+    case UPDATE_PROFILE_HERO:
+      return {
+        ...state,
+        content: { ...state.content, name: action.payload.name }
       };
 
     default:
