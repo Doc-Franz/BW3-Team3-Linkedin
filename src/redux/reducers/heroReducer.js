@@ -15,7 +15,7 @@ const heroReducer = (state = initialState, action) => {
     case UPDATE_PROFILE_HERO:
       return {
         ...state,
-        content: { ...state.content, name: action.payload.name }
+        content: action.payload
       };
 
     default:
