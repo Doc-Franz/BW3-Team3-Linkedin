@@ -24,7 +24,6 @@ dist-ssr
 *.sw?
 
 # Token API
-
 src/assets/js/token.js
 
 
