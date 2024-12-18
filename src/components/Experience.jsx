@@ -41,6 +41,7 @@ const Experience = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentExperience, setCurrentExperience] = useState(null);
   const [formData, setFormData] = useState({});
+  const [selectedFile, setSelectedFile] = useState(null);
   const [isNewExperience, setIsNewExperience] = useState(false);
   const dispatch = useDispatch();
 
@@ -77,12 +78,36 @@ const Experience = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
+  };
+
   const handleSave = async () => {
-    if (isNewExperience) {
-      dispatch(addExperience(userInfo._id, formData));
-    } else {
-      dispatch(updateExperience(currentExperience.user, currentExperience._id, formData));
+    const userId = isNewExperience ? userInfo?._id : currentExperience?.user;
+
+    if (!userId) {
+      alert("Errore: ID utente non trovato!");
+      return;
     }
+
+    const data = new FormData();
+    data.append("role", formData.role);
+    data.append("company", formData.company);
+    data.append("startDate", formData.startDate);
+    data.append("endDate", formData.endDate);
+    data.append("area", formData.area);
+    data.append("description", formData.description);
+
+    if (selectedFile) {
+      data.append("image", selectedFile); // Aggiunge il file selezionato
+    }
+
+    if (isNewExperience) {
+      dispatch(addExperience(userId, data));
+    } else {
+      dispatch(updateExperience(userId, currentExperience._id, data));
+    }
+
     setShowModal(false);
   };
 
@@ -137,6 +162,10 @@ const Experience = () => {
             <Form.Group className="mb-3">
               <Form.Label>Descrizione</Form.Label>
               <Form.Control as="textarea" rows={3} name="description" value={formData.description || ""} onChange={handleInputChange} />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Carica Immagine</Form.Label>
+              <Form.Control type="file" onChange={handleFileChange} />
             </Form.Group>
           </Form>
         </Modal.Body>
