@@ -88,6 +88,7 @@ const Hero = () => {
               <Button
                 variant="primary"
                 onClick={() => {
+                  handleClose();
                   dispatch(updateProfile(updatedInfo));
                 }}
               >
@@ -176,13 +177,7 @@ const Hero = () => {
           </Row>
           <Row className="d-flex">
             <Col>
-              <Button
-                variant="primary"
-                className="rounded-pill mt-2 me-2 px-3"
-                onClick={() => {
-                  dispatch(updateProfileHero(userInfo.id));
-                }}
-              >
+              <Button variant="primary" className="rounded-pill mt-2 me-2 px-3">
                 Disponibili per
               </Button>
               <Button variant="outline-primary" className="rounded-pill mt-2 me-2 px-3">
