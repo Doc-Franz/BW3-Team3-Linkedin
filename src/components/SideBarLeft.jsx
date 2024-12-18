@@ -16,15 +16,17 @@ function SideBarLeft() {
             <Card.Img variant="top" src="https://thingscareerrelated.com/wp-content/uploads/2021/10/default-background-image.png?w=862" alt="Background" />
             <Card.Body className="text-left">
               {userInfo && (
-                <Image
-                  style={{ height: "70px", width: "70px", objectFit: "cover", marginRight: "-50%", marginTop: "-35px", border: "2px solid white" }}
-                  roundedCircle
-                  src={userInfo.image}
-                />
+                <>
+                  <Image
+                    style={{ height: "70px", width: "70px", objectFit: "cover", marginRight: "-50%", marginTop: "-35px", border: "2px solid white" }}
+                    roundedCircle
+                    src={userInfo.image}
+                  />
+                  <Card.Title className="mt-2">{userInfo.name}</Card.Title>
+                  <Card.Text>{userInfo.title}</Card.Text>
+                  <Card.Text className="text-secondary">{userInfo.area}</Card.Text>
+                </>
               )}
-              <Card.Title className="mt-2">{userInfo.name}</Card.Title>
-              <Card.Text>{userInfo.title}</Card.Text>
-              <Card.Text className="text-secondary">{userInfo.area}</Card.Text>
               <Card.Text className="fw-bold d-flex">
                 {experiences.length > 0 && (
                   <>
