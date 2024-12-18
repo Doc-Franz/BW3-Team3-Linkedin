@@ -88,7 +88,6 @@ const Hero = () => {
               <Button
                 variant="primary"
                 onClick={() => {
-                  handleClose;
                   dispatch(updateProfile(updatedInfo));
                 }}
               >
