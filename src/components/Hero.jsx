@@ -4,8 +4,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
-import { updateProfileHero } from "../redux/actions/profileActions";
+import { useState, useEffect } from "react";
+import { updateProfile, updateProfileHero } from "../redux/actions/profileActions";
 
 const Hero = () => {
   const dispatch = useDispatch();
@@ -28,7 +28,27 @@ const Hero = () => {
 
   // selector per riempire i dati dello user
   const userInfo = useSelector((state) => state.hero.content);
-  // const userExperiences = useSelector((state) => state.experience.experiences);
+  const experiences = useSelector((state) => state.experience.experiences);
+
+  // state che controlla l'aggiornamento delle info nella hero
+
+  const [updatedInfo, setUpdatedInfo] = useState({
+    name: "",
+    surname: "",
+    title: "",
+    area: ""
+  });
+
+  useEffect(() => {
+    if (userInfo) {
+      setUpdatedInfo({
+        name: userInfo.name || "",
+        surname: userInfo.surname || "",
+        title: userInfo.title || "",
+        area: userInfo.area || ""
+      });
+    }
+  }, [userInfo]);
 
   return (
     <>
@@ -43,19 +63,24 @@ const Hero = () => {
               <Form>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                   <Form.Label>Nome*</Form.Label>
-                  <Form.Control type="text" autoFocus defaultValue={userInfo.name} />
+                  <Form.Control type="text" autoFocus value={updatedInfo.name} onChange={(e) => setUpdatedInfo({ ...updatedInfo, name: e.target.value })} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                   <Form.Label>Cognome*</Form.Label>
-                  <Form.Control type="text" autoFocus defaultValue={userInfo.surname} />
+                  <Form.Control
+                    type="text"
+                    autoFocus
+                    value={updatedInfo.surname}
+                    onChange={(e) => setUpdatedInfo({ ...updatedInfo, surname: e.target.value })}
+                  />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                   <Form.Label>Sommario*</Form.Label>
-                  <Form.Control type="text" autoFocus defaultValue={userInfo.title} />
+                  <Form.Control type="text" autoFocus value={updatedInfo.title} onChange={(e) => setUpdatedInfo({ ...updatedInfo, title: e.target.value })} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                   <Form.Label>Città*</Form.Label>
-                  <Form.Control type="text" autoFocus defaultValue={userInfo.area} />
+                  <Form.Control type="text" autoFocus value={updatedInfo.area} onChange={(e) => setUpdatedInfo({ ...updatedInfo, area: e.target.value })} />
                 </Form.Group>
               </Form>
             </Modal.Body>
@@ -63,7 +88,7 @@ const Hero = () => {
               <Button
                 variant="primary"
                 onClick={() => {
-                  handleClose;
+                  dispatch(updateProfile(updatedInfo));
                 }}
               >
                 Salva
@@ -133,14 +158,17 @@ const Hero = () => {
               </Row>
             </Col>
             <Col className="d-flex flex-column">
-              <Row className="d-flex mb-2 align-items-center">
-                <Col className="d-flex justify-content-end">{/* <Image src={userExperiences[0].image} style={{ width: "40px", height: "40px" }} /> */}</Col>
-                <Col>{/* <p className="fs-5 fw-semibold">{userExperiences[0].company}</p> */}</Col>
-              </Row>
-              <Row className="d-flex mb-2 align-items-center ">
-                <Col className="d-flex justify-content-end">{/* <Image src={userExperiences[1].image} style={{ width: "40px", height: "40px" }} /> */}</Col>
-                <Col>{/* <p className="fs-5 fw-semibold">{userExperiences[1].company}</p> */}</Col>
-              </Row>
+              {experiences.length > 0 &&
+                experiences.map((exp) => (
+                  <Row className="d-flex mb-2 align-items-center" key={exp._id}>
+                    <Col className="d-flex justify-content-end">
+                      <Image src={exp.image} style={{ width: "40px", height: "40px" }} />
+                    </Col>
+                    <Col>
+                      <p className="fs-5 fw-semibold">{exp.company}</p>
+                    </Col>
+                  </Row>
+                ))}
             </Col>
           </Row>
           <Row className="d-flex">
