@@ -62,7 +62,7 @@ const Homepage = () => {
               <hr />
             </Card.Body>
 
-            <Card.Body className="py-2">
+            <Card.Body className="py-3">
               <Row className="text-center fw-semibold">
                 <Col style={{ cursor: "pointer" }}>
                   <HandThumbsUp /> Consiglia
