@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { Row, Col, Card, Image, Button, Modal, Form } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchExperiences } from "../redux/actions/experienceActions";
-import { tokenAPI } from "../assets/js/token";
+import { updateExperience, deleteExperience, addExperience } from "../redux/actions/experienceActions";
 
 const EsperienzaCard = ({ exp, onEdit }) => {
-  console.log(exp);
   return (
     <Row style={{ borderBottom: "1px solid lightgrey" }}>
       <Col md={1} className="mt-2">
@@ -33,13 +31,14 @@ const EsperienzaCard = ({ exp, onEdit }) => {
 
 const Experience = () => {
   const experiences = useSelector((state) => state.experience.experiences);
+  const userInfo = useSelector((state) => state.hero.content);
   const [showModal, setShowModal] = useState(false);
   const [currentExperience, setCurrentExperience] = useState(null);
   const [formData, setFormData] = useState({});
+  const [isNewExperience, setIsNewExperience] = useState(false);
   const dispatch = useDispatch();
 
   const handleEdit = (experience) => {
-    console.log("Experience:", experience);
     setCurrentExperience(experience);
     setFormData({
       role: experience.role,
@@ -49,6 +48,21 @@ const Experience = () => {
       area: experience.area,
       description: experience.description
     });
+    setIsNewExperience(false);
+    setShowModal(true);
+  };
+
+  const handleAdd = () => {
+    setCurrentExperience(null);
+    setFormData({
+      role: "",
+      company: "",
+      startDate: "",
+      endDate: "",
+      area: "",
+      description: ""
+    });
+    setIsNewExperience(true);
     setShowModal(true);
   };
 
@@ -58,44 +72,17 @@ const Experience = () => {
   };
 
   const handleSave = async () => {
-    try {
-      console.log(currentExperience);
-      const response = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${currentExperience.user}/experiences/${currentExperience._id}`, {
-        method: "PUT",
-        headers: {
-          Authorization: tokenAPI,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formData)
-      });
-
-      if (response.ok) {
-        dispatch(fetchExperiences(currentExperience.user));
-        setShowModal(false);
-      } else {
-        console.error("Errore durante il salvataggio dell'esperienza");
-      }
-    } catch (error) {
-      console.error("Errore nella richiesta PUT:", error);
+    if (isNewExperience) {
+      dispatch(addExperience(userInfo._id, formData));
+    } else {
+      dispatch(updateExperience(currentExperience.user, currentExperience._id, formData));
     }
+    setShowModal(false);
   };
 
   const handleDelete = async () => {
-    try {
-      const response = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${currentExperience.user}/experiences/${currentExperience._id}`, {
-        method: "DELETE",
-        headers: { Authorization: tokenAPI }
-      });
-
-      if (response.ok) {
-        dispatch(fetchExperiences(currentExperience.user));
-        setShowModal(false);
-      } else {
-        console.error("Errore durante l'eliminazione dell'esperienza");
-      }
-    } catch (error) {
-      console.error("Errore nella richiesta DELETE:", error);
-    }
+    dispatch(deleteExperience(currentExperience.user, currentExperience._id));
+    setShowModal(false);
   };
 
   return (
@@ -104,7 +91,7 @@ const Experience = () => {
         <Card.Body className="pb-0">
           <div className="d-flex align-items-center mb-3">
             <h3 className="me-auto">Esperienza</h3>
-            <Button className="btnExp rounded-circle" variant="transparent">
+            <Button className="btnExp rounded-circle" variant="transparent" onClick={handleAdd}>
               <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-plus-lg" viewBox="0 0 16 16">
                 <path d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
               </svg>
@@ -115,10 +102,9 @@ const Experience = () => {
         </Card.Body>
       </Card>
 
-      {/* Modale per modificare le esperienze */}
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Modifica Esperienza</Modal.Title>
+          <Modal.Title>{isNewExperience ? "Aggiungi Esperienza" : "Modifica Esperienza"}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -150,11 +136,13 @@ const Experience = () => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleSave}>
-            Salva
+            {isNewExperience ? "Inserisci" : "Salva"}
           </Button>
-          <Button variant="danger" onClick={handleDelete}>
-            Elimina esperienza
-          </Button>
+          {!isNewExperience && (
+            <Button variant="danger" onClick={handleDelete}>
+              Elimina esperienza
+            </Button>
+          )}
         </Modal.Footer>
       </Modal>
     </>
