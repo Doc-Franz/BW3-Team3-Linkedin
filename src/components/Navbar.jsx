@@ -108,19 +108,23 @@ function MyNavbar() {
                           {/* parte dinamica */}
                           <div className="p-3 border-bottom d-flex align-items-center">
                             {userInfo && (
-                              <Image style={{ height: "50px", width: "50px", objectFit: "cover", marginRight: "10px" }} roundedCircle src={userInfo.image} />
+                              <>
+                                <Image style={{ height: "50px", width: "50px", objectFit: "cover", marginRight: "10px" }} roundedCircle src={userInfo.image} />
+                                <div>
+                                  <h6 className="mb-1">{userInfo.name}</h6>
+                                  <small className="text-muted">{userInfo.title}</small>
+                                </div>
+                              </>
                             )}
-                            <div>
-                              <h6 className="mb-1">{userInfo.name}</h6>
-                              <small className="text-muted">{userInfo.title}</small>
-                            </div>
                           </div>
 
                           {/* bottone x profilo */}
                           <div className="px-3 py-2">
-                            <Button variant="outline-primary" className="w-100">
-                              Visualizza profilo
-                            </Button>
+                            <Link to={"/profile"}>
+                              <Button variant="outline-primary" className="w-100">
+                                Visualizza profilo
+                              </Button>
+                            </Link>
                           </div>
 
                           <div className="px-3 py-2 border-bottom">
