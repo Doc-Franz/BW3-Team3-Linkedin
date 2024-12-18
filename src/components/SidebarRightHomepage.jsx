@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BsDot, BsChevronDown, BsChevronUp } from "react-icons/bs";
 
-const SidebarRight = () => {
+const SidebarRightHomepage = () => {
   // Stato espnzione
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -122,4 +122,4 @@ const SidebarRight = () => {
   );
 };
 
-export default SidebarRight;
+export default SidebarRightHomepage;
