@@ -1,8 +1,17 @@
 import { Card, CardBody, Col, Container, Image, ListGroup, Row } from "react-bootstrap";
 import SideBarRight from "./SideBarRight";
 import { HandThumbsUp, ChatText, Arrow90degRight, Send, X, ThreeDots, HandThumbsUpFill, GlobeEuropeAfrica } from "react-bootstrap-icons";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchHomepage } from "../redux/actions/homepageActions";
 
 const Homepage = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchHomepage());
+  }, []);
+
   return (
     <Container>
       <Row>

@@ -1,12 +1,15 @@
 import { FILL_HOMEPAGE } from "../actions/homepageActions";
 
-const initialState = {};
+const initialState = {
+  content: []
+};
 
 const homepageReducer = (state = initialState, action) => {
   switch (action.type) {
     case FILL_HOMEPAGE:
       return {
-        ...state
+        ...state,
+        content: action.payload
       };
 
     default:
