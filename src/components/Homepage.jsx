@@ -1,9 +1,10 @@
 import { Card, CardBody, Col, Container, Image, ListGroup, Row } from "react-bootstrap";
-import SideBarRight from "./SideBarRight";
 import { HandThumbsUp, ChatText, Arrow90degRight, Send, X, ThreeDots, HandThumbsUpFill, GlobeEuropeAfrica } from "react-bootstrap-icons";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchHomepage } from "../redux/actions/homepageActions";
+import SideBarLeft from "./SideBarLeft";
+import SidebarRightHomepage from "./SidebarRightHomepage";
 
 const Homepage = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,9 @@ const Homepage = () => {
   return (
     <Container>
       <Row>
-        <Col md={3}>{/* va creata una SidebarLeft */}</Col>
+        <Col md={3}>
+          <SideBarLeft />
+        </Col>
         <Col md={6}>
           <Card className="mt-3">
             <Row className="mt-2 me-1">
@@ -90,7 +93,7 @@ const Homepage = () => {
           </Card>
         </Col>
         <Col md={3}>
-          <SideBarRight />
+          <SidebarRightHomepage />
         </Col>
       </Row>
     </Container>

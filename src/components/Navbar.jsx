@@ -44,7 +44,9 @@ function MyNavbar() {
           <Row className="w-100 align-items-center justify-content-between m-0">
             {/* LinkedIn Icon */}
             <Col xs="auto" className="d-flex align-items-center mt-2">
-              <Linkedin size={40} style={{ color: "#0077b5" }} />
+              <Link to="/">
+                <Linkedin size={40} style={{ color: "#0077b5" }} />
+              </Link>
             </Col>
 
             {/* Search Input */}
@@ -62,7 +64,7 @@ function MyNavbar() {
             {/* Navbar Links */}
             <Col className="d-flex justify-content-center mt-2">
               <Nav className="d-flex gap-4 align-items-center">
-                <Link to="/home" className="text-decoration-none text-dark d-flex flex-column align-items-center">
+                <Link to="/" className="text-decoration-none text-dark d-flex flex-column align-items-center">
                   <HouseDoorFill size={24} />
                   <Nav.Link href="#action1" className="p-0">
                     Home
