@@ -9,10 +9,10 @@ const Homepage = () => {
         <Col md={3}>{/* va creata una SidebarLeft */}</Col>
         <Col md={6}>
           <Card className="mt-3">
-            <Row>
+            <Row className="mt-2 me-1">
               <Col className="col-9">
                 <Row className="align-items-center">
-                  <Col>
+                  <Col sm={4} lg={3}>
                     <Image
                       src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9bSdmyPGsBkS5WQ7fjHWoPIcYcHnOUlJ1cQ&s"
                       className="img-fluid"
