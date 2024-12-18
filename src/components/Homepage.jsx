@@ -4,6 +4,7 @@ import { HandThumbsUp, ChatText, Arrow90degRight, Send, X, ThreeDots, HandThumbs
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchHomepage } from "../redux/actions/homepageActions";
+import SideBarLeft from "./SideBarLeft";
 
 const Homepage = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,9 @@ const Homepage = () => {
   return (
     <Container>
       <Row>
-        <Col md={3}>{/* va creata una SidebarLeft */}</Col>
+        <Col md={3}>
+          <SideBarLeft />
+        </Col>
         <Col md={6}>
           <Card className="mt-3">
             <Row className="mt-2 me-1">
