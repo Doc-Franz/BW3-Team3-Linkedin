@@ -159,10 +159,13 @@ const Hero = () => {
             </Col>
             <Col className="d-flex flex-column">
               {experiences.length > 0 &&
-                experiences.map((exp) => (
+                experiences.slice(0, 2).map((exp) => (
                   <Row className="d-flex mb-2 align-items-center" key={exp._id}>
                     <Col className="d-flex justify-content-end">
-                      <Image src={exp.image} style={{ width: "40px", height: "40px" }} />
+                      <Image
+                        src="https://media.licdn.com/dms/image/v2/C4E0BAQHYgix-Ynux1A/company-logo_100_100/company-logo_100_100/0/1646830188798/epicodeschool_logo?e=1742428800&amp;v=beta&amp;t=1545nc7H976MH9PquSOoKQx-4ziZtAD1DU3H-k2vuig"
+                        style={{ width: "40px", height: "40px" }}
+                      />
                     </Col>
                     <Col>
                       <p className="fs-5 fw-semibold">{exp.company}</p>

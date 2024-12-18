@@ -1,10 +1,10 @@
 import { Card, CardBody, Col, Container, Image, ListGroup, Row } from "react-bootstrap";
-import SideBarRight from "./SideBarRight";
 import { HandThumbsUp, ChatText, Arrow90degRight, Send, X, ThreeDots, HandThumbsUpFill, GlobeEuropeAfrica } from "react-bootstrap-icons";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchHomepage } from "../redux/actions/homepageActions";
 import SideBarLeft from "./SideBarLeft";
+import SidebarRightHomepage from "./SidebarRightHomepage";
 
 const Homepage = () => {
   const dispatch = useDispatch();
@@ -93,7 +93,7 @@ const Homepage = () => {
           </Card>
         </Col>
         <Col md={3}>
-          <SideBarRight />
+          <SidebarRightHomepage />
         </Col>
       </Row>
     </Container>
