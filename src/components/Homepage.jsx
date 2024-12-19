@@ -61,7 +61,7 @@ const Homepage = () => {
                     </Row>
                   </CardBody>
 
-                  <Card.Img className="img-fluid" variant="top" src={post.user.image} />
+                  {post.image && <Card.Img className="img-fluid" variant="top" src={post.image} />}
                   <Card.Body className="py-0">
                     <Row className="mt-2">
                       <Col className="d-flex align-items-center">

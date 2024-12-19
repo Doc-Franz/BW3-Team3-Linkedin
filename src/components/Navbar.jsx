@@ -15,17 +15,20 @@ import {
   MegaphoneFill,
   BookFill
 } from "react-bootstrap-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BsCompass } from "react-icons/bs";
 
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProfile } from "../redux/actions/profileActions";
 import { fetchExperiences } from "../redux/actions/experienceActions";
 import { useEffect } from "react";
+import { fillJobsMoreChancePage } from "../redux/actions/jobActions";
 
 function MyNavbar() {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.hero.content);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchProfile("me"));
@@ -41,7 +44,8 @@ function MyNavbar() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const jobToSearch = e.target.elements.searchProfile.value;
-    // dispatch(searchNewProfile(profileToSearch));
+    dispatch(fillJobsMoreChancePage(jobToSearch));
+    navigate(`/jobs/${jobToSearch}`);
   };
 
   return (
