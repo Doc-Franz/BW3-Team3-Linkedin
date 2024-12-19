@@ -45,7 +45,7 @@ function MyNavbar() {
   };
 
   return (
-    <Navbar expand="lg" className="bg-white border-bottom shadow-sm py-0">
+    <Navbar expand="lg" className="bg-white border-bottom shadow-sm py-0 fixed-top">
       <Container className="px-0">
         <Navbar.Collapse id="navbarScroll">
           <Row className="w-100 align-items-center justify-content-between m-0">

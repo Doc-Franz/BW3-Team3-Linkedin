@@ -18,7 +18,7 @@ const Homepage = () => {
 
   return (
     <Container>
-      <Row className="mb-3">
+      <Row className="mb-3" style={{ marginTop: "90px" }}>
         <Col md={3}>
           <SideBarLeft />
         </Col>
@@ -28,7 +28,7 @@ const Homepage = () => {
               <Card className="mt-3" key={post._id}>
                 <Row className="mt-2 me-1">
                   <Col className="col-9">
-                    <Row className="align-items-center ms-2">
+                    <Row className="align-items-start ms-2">
                       <Col sm={4} lg={3}>
                         <Image src={post.user.image} className="img-fluid" style={{ maxHeight: "100px", objectFit: "cover" }} />
                       </Col>

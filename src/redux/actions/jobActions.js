@@ -1,19 +1,19 @@
 import { tokenAPI } from "../../assets/js/token";
 
-export const SEARCH_JOB = "SEARCH_JOB"; // azione per ricercare un job dalla barra di search
+export const FILL_JOBS = "FILL_JOBS"; // azione per ricercare un job dalla barra di search
 
-export const searchJob = (job) => ({ type: SEARCH_JOB, payload: job });
+export const fillJobs = (job) => ({ type: FILL_JOBS, payload: job });
 
-// fetch GET per cercare un job dalla barra del search
-export const searchNewJob = () => {
+// fetch GET che si attiva al caricamento della pagina Jobs
+export const fillJobsPage = () => {
   return async (dispatch) => {
     try {
-      const response = await fetch("https://striveschool-api.herokuapp.com/api/profile", {
+      const response = await fetch("https://strive-benchmark.herokuapp.com/api/jobs", {
         headers: { Authorization: tokenAPI }
       });
       if (response.ok) {
         const data = await response.json();
-        dispatch(searchJob(data));
+        dispatch(fillJobs(data));
       } else {
         alert("Error fetching results");
       }

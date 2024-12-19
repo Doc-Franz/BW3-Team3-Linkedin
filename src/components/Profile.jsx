@@ -12,7 +12,7 @@ const Profile = () => {
     <>
       <Container>
         <Row>
-          <Col md={9}>
+          <Col md={9} style={{ marginTop: "90px" }}>
             <Hero />
             <Dashboard />
             <Experience />
@@ -20,7 +20,7 @@ const Profile = () => {
             <Competence />
             <Interest />
           </Col>
-          <Col md={3}>
+          <Col md={3} style={{ marginTop: "90px" }}>
             <SideBarRight />
           </Col>
         </Row>
