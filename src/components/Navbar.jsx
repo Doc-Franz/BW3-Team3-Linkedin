@@ -84,25 +84,25 @@ function MyNavbar() {
                     Home
                   </Nav.Link>
                 </Link>
-                <Link to="/rete" className="text-decoration-none text-dark d-flex flex-column align-items-center">
+                <Link to="/" className="text-decoration-none text-dark d-flex flex-column align-items-center">
                   <PeopleFill size={24} />
                   <Nav.Link href="#action2" className="p-0">
                     Rete
                   </Nav.Link>
                 </Link>
-                <Link to="/lavoro" className="text-decoration-none text-dark d-flex flex-column align-items-center">
+                <Link to="/jobs" className="text-decoration-none text-dark d-flex flex-column align-items-center">
                   <SuitcaseLgFill size={24} />
                   <Nav.Link href="#action3" className="p-0">
                     Lavoro
                   </Nav.Link>
                 </Link>
-                <Link to="/messaggistica" className="text-decoration-none text-dark d-flex flex-column align-items-center">
+                <Link to="/" className="text-decoration-none text-dark d-flex flex-column align-items-center">
                   <ChatDotsFill size={24} />
                   <Nav.Link href="#action4" className="p-0">
                     Messaggistica
                   </Nav.Link>
                 </Link>
-                <Link to="/notifiche" className="text-decoration-none text-dark d-flex flex-column align-items-center">
+                <Link to="/" className="text-decoration-none text-dark d-flex flex-column align-items-center">
                   <BellFill size={24} />
                   <Nav.Link href="#action5" className="p-0">
                     Notifiche
