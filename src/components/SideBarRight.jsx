@@ -41,7 +41,7 @@ function SideBarRight() {
               <i className="bi bi-pencil"></i>
             </span>
           </Card.Title>
-          <Card.Text>Francese</Card.Text>
+          <Card.Text>Italiano</Card.Text>
           <hr />
           <Card.Title className="list-group-item d-flex justify-content-between align-items-center">
             Profilo pubblico e URL{" "}
