@@ -44,3 +44,36 @@ export const updateProfile = (updatedInfo) => {
     }
   };
 };
+
+export const uploadProfileImage = (userId, imageFile) => {
+  return async (dispatch) => {
+    if (!imageFile) {
+      console.warn("Nessuna immagine selezionata, salta la POST.");
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append("profile", imageFile);
+      console.log(formData);
+
+      const response = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${userId}/picture`, {
+        method: "POST",
+        headers: {
+          Authorization: tokenAPI
+        },
+        body: formData
+      });
+
+      if (response.ok) {
+        console.log("Immagine caricata con successo");
+      } else {
+        console.error("Errore durante il caricamento dell'immagine del profilo");
+      }
+      const data = await response.json();
+      dispatch(updateProfileHero(data));
+    } catch (error) {
+      console.error("Errore nella richiesta POST:", error);
+    }
+  };
+};

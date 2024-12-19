@@ -10,7 +10,10 @@ const EsperienzaCard = ({ exp, onEdit }) => {
         <Image
           width="48"
           height="48"
-          src="https://media.licdn.com/dms/image/v2/C4E0BAQHYgix-Ynux1A/company-logo_100_100/company-logo_100_100/0/1646830188798/epicodeschool_logo?e=1742428800&amp;v=beta&amp;t=1545nc7H976MH9PquSOoKQx-4ziZtAD1DU3H-k2vuig"
+          src={
+            exp.image ||
+            "https://media.licdn.com/dms/image/v2/C4E0BAQHYgix-Ynux1A/company-logo_100_100/company-logo_100_100/0/1646830188798/epicodeschool_logo?e=1742428800&amp;v=beta&amp;t=1545nc7H976MH9PquSOoKQx-4ziZtAD1DU3H-k2vuig"
+          }
           alt={`Logo di ${exp.company}`}
           roundedCircle
         />
@@ -90,22 +93,19 @@ const Experience = () => {
       return;
     }
 
-    const data = new FormData();
-    data.append("role", formData.role);
-    data.append("company", formData.company);
-    data.append("startDate", formData.startDate);
-    data.append("endDate", formData.endDate);
-    data.append("area", formData.area);
-    data.append("description", formData.description);
-
-    if (selectedFile) {
-      data.append("image", selectedFile); // Aggiunge il file selezionato
-    }
+    const experienceData = {
+      role: formData.role,
+      company: formData.company,
+      startDate: formData.startDate,
+      endDate: formData.endDate,
+      area: formData.area,
+      description: formData.description
+    };
 
     if (isNewExperience) {
-      dispatch(addExperience(userId, data));
+      dispatch(addExperience(userId, experienceData, selectedFile));
     } else {
-      dispatch(updateExperience(userId, currentExperience._id, data));
+      dispatch(updateExperience(userId, currentExperience._id, experienceData, selectedFile));
     }
 
     setShowModal(false);
