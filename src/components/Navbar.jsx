@@ -37,8 +37,15 @@ function MyNavbar() {
     }
   }, [dispatch, userInfo]);
 
+  // funzione che gestisce l'input dalla barra del search
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const jobToSearch = e.target.elements.searchProfile.value;
+    // dispatch(searchNewProfile(profileToSearch));
+  };
+
   return (
-    <Navbar expand="lg" className="bg-white border-bottom shadow-sm py-0">
+    <Navbar expand="lg" className="bg-white border-bottom shadow-sm py-0 fixed-top">
       <Container className="px-0">
         <Navbar.Collapse id="navbarScroll">
           <Row className="w-100 align-items-center justify-content-between m-0">
@@ -51,12 +58,19 @@ function MyNavbar() {
 
             {/* Search Input */}
             <Col className="d-flex align-items-center mt-2" style={{ maxWidth: "300px" }}>
-              <Form className="w-100">
+              <Form className="w-100" onSubmit={handleSubmit}>
                 <InputGroup>
                   <InputGroup.Text className="bg-light border-0">
                     <Search />
                   </InputGroup.Text>
-                  <Form.Control placeholder="Cerca" aria-label="Cerca" aria-describedby="basic-addon1" className="border-0 bg-light" />
+                  <Form.Control
+                    id="searchProfile"
+                    placeholder="Cerca"
+                    aria-label="Cerca"
+                    aria-describedby="basic-addon1"
+                    className="border-0 bg-light"
+                    autoComplete="off"
+                  />
                 </InputGroup>
               </Form>
             </Col>
@@ -70,25 +84,25 @@ function MyNavbar() {
                     Home
                   </Nav.Link>
                 </Link>
-                <Link to="/rete" className="text-decoration-none text-dark d-flex flex-column align-items-center">
+                <Link to="/" className="text-decoration-none text-dark d-flex flex-column align-items-center">
                   <PeopleFill size={24} />
                   <Nav.Link href="#action2" className="p-0">
                     Rete
                   </Nav.Link>
                 </Link>
-                <Link to="/lavoro" className="text-decoration-none text-dark d-flex flex-column align-items-center">
+                <Link to="/jobs" className="text-decoration-none text-dark d-flex flex-column align-items-center">
                   <SuitcaseLgFill size={24} />
                   <Nav.Link href="#action3" className="p-0">
                     Lavoro
                   </Nav.Link>
                 </Link>
-                <Link to="/messaggistica" className="text-decoration-none text-dark d-flex flex-column align-items-center">
+                <Link to="/" className="text-decoration-none text-dark d-flex flex-column align-items-center">
                   <ChatDotsFill size={24} />
                   <Nav.Link href="#action4" className="p-0">
                     Messaggistica
                   </Nav.Link>
                 </Link>
-                <Link to="/notifiche" className="text-decoration-none text-dark d-flex flex-column align-items-center">
+                <Link to="/" className="text-decoration-none text-dark d-flex flex-column align-items-center">
                   <BellFill size={24} />
                   <Nav.Link href="#action5" className="p-0">
                     Notifiche

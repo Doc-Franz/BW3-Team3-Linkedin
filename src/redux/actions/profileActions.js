@@ -5,7 +5,7 @@ export const UPDATE_PROFILE_HERO = "UPDATE_PROFILE_HERO"; // azione che aggiorna
 export const fillProfileHero = (userInfo) => ({ type: FILL_PROFILE_HERO, payload: userInfo });
 export const updateProfileHero = (updatedUserInfo) => ({ type: UPDATE_PROFILE_HERO, payload: updatedUserInfo });
 
-// fetch per riempire la sezione hero con i dati dello user
+// fetch GET per riempire la sezione hero con i dati dello user
 export const fetchProfile = () => {
   return async (dispatch) => {
     try {
@@ -24,7 +24,7 @@ export const fetchProfile = () => {
   };
 };
 
-// fetch per aggiornare la sezione dell'hero
+// fetch PUT per aggiornare la sezione dell'hero
 export const updateProfile = (updatedInfo) => {
   return async (dispatch) => {
     try {

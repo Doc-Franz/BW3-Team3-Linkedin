@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { updateProfile, updateProfileHero, uploadProfileImage } from "../redux/actions/profileActions";
+import { updateProfile, uploadProfileImage } from "../redux/actions/profileActions";
 
 const Hero = () => {
   const dispatch = useDispatch();
@@ -188,13 +188,7 @@ const Hero = () => {
           </Row>
           <Row className="d-flex">
             <Col>
-              <Button
-                variant="primary"
-                className="rounded-pill mt-2 me-2 px-3"
-                onClick={() => {
-                  dispatch(updateProfileHero(userInfo.id));
-                }}
-              >
+              <Button variant="primary" className="rounded-pill mt-2 me-2 px-3">
                 Disponibili per
               </Button>
               <Button variant="outline-primary" className="rounded-pill mt-2 me-2 px-3">
