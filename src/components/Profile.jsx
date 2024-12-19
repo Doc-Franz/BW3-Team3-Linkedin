@@ -13,11 +13,11 @@ const Profile = () => {
       <Container>
         <Row>
           <Col md={9}>
-            <Hero />
-            <Dashboard />
-            <Experience />
-            <Formations />
-            <Competence />
+            <Hero flag={true} />
+            <Dashboard flag={true} />
+            <Experience flag={true} />
+            <Formations flag={true} />
+            <Competence flag={true} />
             <Interest />
           </Col>
           <Col md={3}>

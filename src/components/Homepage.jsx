@@ -3,6 +3,7 @@ import { HandThumbsUp, ChatText, Arrow90degRight, Send, X, ThreeDots, HandThumbs
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchHomepage } from "../redux/actions/homepageActions";
+import { fetchProfile } from "../redux/actions/profileActions";
 import SideBarLeft from "./SideBarLeft";
 import SidebarRightHomepage from "./SidebarRightHomepage";
 
@@ -10,6 +11,7 @@ const Homepage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(fetchProfile("me"));
     dispatch(fetchHomepage());
   }, []);
 

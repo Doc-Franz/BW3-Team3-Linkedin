@@ -1,16 +1,4 @@
-import {
-  Button,
-  Col,
-  Container,
-  Dropdown,
-  Form,
-  Image,
-  InputGroup,
-  Nav,
-  Navbar,
-  NavDropdown,
-  Row,
-} from "react-bootstrap";
+import { Button, Col, Container, Dropdown, Form, Image, InputGroup, Nav, Navbar, NavDropdown, Row } from "react-bootstrap";
 import {
   Linkedin,
   Search,
@@ -25,7 +13,7 @@ import {
   PencilSquare,
   Shop,
   MegaphoneFill,
-  BookFill,
+  BookFill
 } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import { BsCompass } from "react-icons/bs";
@@ -62,21 +50,13 @@ function MyNavbar() {
             </Col>
 
             {/* Search Input */}
-            <Col
-              className="d-flex align-items-center mt-2"
-              style={{ maxWidth: "300px" }}
-            >
+            <Col className="d-flex align-items-center mt-2" style={{ maxWidth: "300px" }}>
               <Form className="w-100">
                 <InputGroup>
                   <InputGroup.Text className="bg-light border-0">
                     <Search />
                   </InputGroup.Text>
-                  <Form.Control
-                    placeholder="Cerca"
-                    aria-label="Cerca"
-                    aria-describedby="basic-addon1"
-                    className="border-0 bg-light"
-                  />
+                  <Form.Control placeholder="Cerca" aria-label="Cerca" aria-describedby="basic-addon1" className="border-0 bg-light" />
                 </InputGroup>
               </Form>
             </Col>
@@ -84,46 +64,31 @@ function MyNavbar() {
             {/* Navbar Links */}
             <Col className="d-flex justify-content-center mt-2">
               <Nav className="d-flex gap-4 align-items-center">
-                <Link
-                  to="/"
-                  className="text-decoration-none text-dark d-flex flex-column align-items-center"
-                >
+                <Link to="/" className="text-decoration-none text-dark d-flex flex-column align-items-center">
                   <HouseDoorFill size={24} />
                   <Nav.Link href="#action1" className="p-0">
                     Home
                   </Nav.Link>
                 </Link>
-                <Link
-                  to="/rete"
-                  className="text-decoration-none text-dark d-flex flex-column align-items-center"
-                >
+                <Link to="/rete" className="text-decoration-none text-dark d-flex flex-column align-items-center">
                   <PeopleFill size={24} />
                   <Nav.Link href="#action2" className="p-0">
                     Rete
                   </Nav.Link>
                 </Link>
-                <Link
-                  to="/lavoro"
-                  className="text-decoration-none text-dark d-flex flex-column align-items-center"
-                >
+                <Link to="/lavoro" className="text-decoration-none text-dark d-flex flex-column align-items-center">
                   <SuitcaseLgFill size={24} />
                   <Nav.Link href="#action3" className="p-0">
                     Lavoro
                   </Nav.Link>
                 </Link>
-                <Link
-                  to="/messaggistica"
-                  className="text-decoration-none text-dark d-flex flex-column align-items-center"
-                >
+                <Link to="/messaggistica" className="text-decoration-none text-dark d-flex flex-column align-items-center">
                   <ChatDotsFill size={24} />
                   <Nav.Link href="#action4" className="p-0">
                     Messaggistica
                   </Nav.Link>
                 </Link>
-                <Link
-                  to="/notifiche"
-                  className="text-decoration-none text-dark d-flex flex-column align-items-center"
-                >
+                <Link to="/notifiche" className="text-decoration-none text-dark d-flex flex-column align-items-center">
                   <BellFill size={24} />
                   <Nav.Link href="#action5" className="p-0">
                     Notifiche
@@ -136,15 +101,13 @@ function MyNavbar() {
                     <Col xs="auto">
                       <Dropdown>
                         <Dropdown.Toggle variant="white" id="dropdown-basic">
-                          <div
-                            style={{ display: "flex", alignItems: "center" }}
-                          >
+                          <div style={{ display: "flex", alignItems: "center" }}>
                             {userInfo && (
                               <Image
                                 style={{
                                   height: "24px",
                                   width: "24px",
-                                  objectFit: "cover",
+                                  objectFit: "cover"
                                 }}
                                 roundedCircle
                                 src={userInfo.image}
@@ -163,16 +126,14 @@ function MyNavbar() {
                                     height: "50px",
                                     width: "50px",
                                     objectFit: "cover",
-                                    marginRight: "10px",
+                                    marginRight: "10px"
                                   }}
                                   roundedCircle
                                   src={userInfo.image}
                                 />
                                 <div>
                                   <h6 className="mb-1">{userInfo.name}</h6>
-                                  <small className="text-muted">
-                                    {userInfo.title}
-                                  </small>
+                                  <small className="text-muted">{userInfo.title}</small>
                                 </div>
                               </>
                             )}
@@ -184,6 +145,9 @@ function MyNavbar() {
                               <Button
                                 variant="outline-primary"
                                 className="w-100"
+                                onClick={() => {
+                                  dispatch(fetchProfile("me"));
+                                }}
                               >
                                 Visualizza profilo
                               </Button>
@@ -193,21 +157,15 @@ function MyNavbar() {
                           <div className="px-3 py-2 border-bottom">
                             <h6 className="text-muted px-3">ACCOUNT</h6>
 
-                            <Dropdown.Item href="#">
-                              Impostazioni e privacy
-                            </Dropdown.Item>
+                            <Dropdown.Item href="#">Impostazioni e privacy</Dropdown.Item>
                             <Dropdown.Item href="#">Guida</Dropdown.Item>
                             <Dropdown.Item href="#">Lingua</Dropdown.Item>
                           </div>
 
                           <div className="px-3 py-2 border-bottom">
                             <h6 className="text-muted  px-3">GESTISCI</h6>
-                            <Dropdown.Item href="#">
-                              Post e attività
-                            </Dropdown.Item>
-                            <Dropdown.Item href="#">
-                              Account per la pubblicazione di off...
-                            </Dropdown.Item>
+                            <Dropdown.Item href="#">Post e attività</Dropdown.Item>
+                            <Dropdown.Item href="#">Account per la pubblicazione di off...</Dropdown.Item>
                           </div>
 
                           <div className="px-3 py-2">
@@ -224,18 +182,14 @@ function MyNavbar() {
                   style={{
                     width: "1px",
                     height: "60px",
-                    backgroundColor: "#ccc",
+                    backgroundColor: "#ccc"
                   }}
                 ></div>
                 {/* Grid Icon */}
                 <Col xs="auto" className="d-flex align-items-center mt-2">
                   <div className="d-flex flex-column align-items-center">
                     <Grid3x3GapFill size={24} />
-                    <NavDropdown
-                      title="Per le aziende"
-                      id="navbarScrollingDropdown"
-                      align="end"
-                    >
+                    <NavDropdown title="Per le aziende" id="navbarScrollingDropdown" align="end">
                       <div style={{ width: "700px", padding: "10px" }}>
                         <Row>
                           {/* Colonna sinistra */}
@@ -243,12 +197,10 @@ function MyNavbar() {
                             <h4 className="fw-bold p-4">Le mie app</h4>
                             <ul className="list-unstyled ps-4">
                               <li className="py-2">
-                                <BsCompass size={24} className="me-2" /> Trova
-                                nuovi clienti
+                                <BsCompass size={24} className="me-2" /> Trova nuovi clienti
                               </li>
                               <li className="py-2">
-                                <PersonLinesFill size={24} className="me-2" />{" "}
-                                Gruppi
+                                <PersonLinesFill size={24} className="me-2" /> Gruppi
                               </li>
                               <h6 className="text-muted pt-4 py-2"> Talent</h6>
                               <li className="py-2">
@@ -264,18 +216,12 @@ function MyNavbar() {
                                 <Shop size={24} className="me-2" />
                                 Marketplace dei servizi
                               </li>
-                              <h6 className="text-muted pt-4 py-2">
-                                {" "}
-                                Marketing
-                              </h6>
+                              <h6 className="text-muted pt-4 py-2"> Marketing</h6>
                               <li className="py-2">
                                 <MegaphoneFill size={24} className="me-2" />
                                 Pubblicizza
                               </li>
-                              <h6 className="text-muted pt-4 py-2">
-                                {" "}
-                                Learning
-                              </h6>
+                              <h6 className="text-muted pt-4 py-2"> Learning</h6>
                               <li className="py-2">
                                 <BookFill size={24} className="me-2" />
                                 Learning
@@ -286,57 +232,41 @@ function MyNavbar() {
 
                           {/* Colonna destra */}
                           <Col className="px-4">
-                            <h4 className="fw-bold  pb-2 pt-3">
-                              Scopri altro per il business
-                            </h4>
+                            <h4 className="fw-bold  pb-2 pt-3">Scopri altro per il business</h4>
                             <ul className="list-unstyled">
                               <li className="pt-2">
                                 {" "}
                                 <h5>Assumi su LinkedIn</h5>
                               </li>
-                              <p className="text-muted">
-                                Trova,attrai e assumi{" "}
-                              </p>
+                              <p className="text-muted">Trova,attrai e assumi </p>
                               <li className="pt-2">
                                 <h5>Vendi con LinkedIn</h5>
                               </li>
-                              <p className="text-muted">
-                                Sblocca nuova opportunita di vendita{" "}
-                              </p>
+                              <p className="text-muted">Sblocca nuova opportunita di vendita </p>
 
                               <li className="pt-2">
                                 <h5>Offerta di lavoro gratuita</h5>
                               </li>
-                              <p className="text-muted">
-                                Ottieni rapidamente candidati qualificati{" "}
-                              </p>
+                              <p className="text-muted">Ottieni rapidamente candidati qualificati </p>
                               <li className="pt-2">
                                 <h5>Fai pubblicità su LinkedIn</h5>
                               </li>
-                              <p className="text-muted">
-                                Acquisisci clienti e fai crescere la tua azienda{" "}
-                              </p>
+                              <p className="text-muted">Acquisisci clienti e fai crescere la tua azienda </p>
 
                               <li className="pt-2">
                                 <h5>Inizia con Premium</h5>
                               </li>
-                              <p className="text-muted">
-                                Amplia e sfrutta la tua rete{" "}
-                              </p>
+                              <p className="text-muted">Amplia e sfrutta la tua rete </p>
 
                               <li className="pt-2">
                                 <h5>Impara con LinkedIn</h5>
                               </li>
-                              <p className="text-muted">
-                                Corsi per formare i tuoi dipendenti{" "}
-                              </p>
+                              <p className="text-muted">Corsi per formare i tuoi dipendenti </p>
 
                               <li className="pt-2">
                                 <h5>Admin Center</h5>
                               </li>
-                              <p className="text-muted">
-                                Gestisci i dettagli di fatturazione e account
-                              </p>
+                              <p className="text-muted">Gestisci i dettagli di fatturazione e account</p>
 
                               <li className="fw-bold text-muted pt-2">
                                 <h5>+ Crea una pagina aziendale</h5>

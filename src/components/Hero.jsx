@@ -1,24 +1,13 @@
-import {
-  Button,
-  Col,
-  Container,
-  Form,
-  Image,
-  Modal,
-  Row,
-} from "react-bootstrap";
+import { Button, Col, Container, Form, Image, Modal, Row } from "react-bootstrap";
 import { CameraFill, Pencil, ShieldCheck, X } from "react-bootstrap-icons";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import {
-  updateProfile,
-  updateProfileHero,
-} from "../redux/actions/profileActions";
+import { updateProfile, updateProfileHero } from "../redux/actions/profileActions";
 
-const Hero = () => {
+const Hero = (props) => {
   const dispatch = useDispatch();
 
   // settings dello slider
@@ -27,7 +16,7 @@ const Hero = () => {
     infinite: true,
     speed: 500,
     slidesToShow: 2,
-    slidesToScroll: 2,
+    slidesToScroll: 2
   };
 
   // stato che gestisce il modal
@@ -47,7 +36,7 @@ const Hero = () => {
     name: "",
     surname: "",
     title: "",
-    area: "",
+    area: ""
   });
 
   useEffect(() => {
@@ -56,7 +45,7 @@ const Hero = () => {
         name: userInfo.name || "",
         surname: userInfo.surname || "",
         title: userInfo.title || "",
-        area: userInfo.area || "",
+        area: userInfo.area || ""
       });
     }
   }, [userInfo]);
@@ -64,10 +53,7 @@ const Hero = () => {
   return (
     <>
       {userInfo && (
-        <Container
-          className="pb-4 rounded"
-          style={{ backgroundColor: "white" }}
-        >
+        <Container className="pb-4 rounded" style={{ backgroundColor: "white" }}>
           {/* modal per modificare le info del profile */}
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -75,24 +61,11 @@ const Hero = () => {
             </Modal.Header>
             <Modal.Body>
               <Form>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                   <Form.Label>Nome*</Form.Label>
-                  <Form.Control
-                    type="text"
-                    autoFocus
-                    value={updatedInfo.name}
-                    onChange={(e) =>
-                      setUpdatedInfo({ ...updatedInfo, name: e.target.value })
-                    }
-                  />
+                  <Form.Control type="text" autoFocus value={updatedInfo.name} onChange={(e) => setUpdatedInfo({ ...updatedInfo, name: e.target.value })} />
                 </Form.Group>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                   <Form.Label>Cognome*</Form.Label>
                   <Form.Control
                     type="text"
@@ -101,38 +74,18 @@ const Hero = () => {
                     onChange={(e) =>
                       setUpdatedInfo({
                         ...updatedInfo,
-                        surname: e.target.value,
+                        surname: e.target.value
                       })
                     }
                   />
                 </Form.Group>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                   <Form.Label>Sommario*</Form.Label>
-                  <Form.Control
-                    type="text"
-                    autoFocus
-                    value={updatedInfo.title}
-                    onChange={(e) =>
-                      setUpdatedInfo({ ...updatedInfo, title: e.target.value })
-                    }
-                  />
+                  <Form.Control type="text" autoFocus value={updatedInfo.title} onChange={(e) => setUpdatedInfo({ ...updatedInfo, title: e.target.value })} />
                 </Form.Group>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                   <Form.Label>Città*</Form.Label>
-                  <Form.Control
-                    type="text"
-                    autoFocus
-                    value={updatedInfo.area}
-                    onChange={(e) =>
-                      setUpdatedInfo({ ...updatedInfo, area: e.target.value })
-                    }
-                  />
+                  <Form.Control type="text" autoFocus value={updatedInfo.area} onChange={(e) => setUpdatedInfo({ ...updatedInfo, area: e.target.value })} />
                 </Form.Group>
               </Form>
             </Modal.Body>
@@ -156,7 +109,7 @@ const Hero = () => {
               backgroundSize: "cover",
               backgroundPosition: "center",
               height: "200px",
-              position: "relative",
+              position: "relative"
             }}
           >
             <Image
@@ -168,7 +121,7 @@ const Hero = () => {
                 position: "absolute",
                 left: "30px",
                 top: "90px",
-                cursor: "pointer",
+                cursor: "pointer"
               }}
             />
 
@@ -179,7 +132,7 @@ const Hero = () => {
                   width: "40px",
                   height: "40px",
                   backgroundColor: "white",
-                  cursor: "pointer",
+                  cursor: "pointer"
                 }}
               >
                 <CameraFill style={{ width: "20px", height: "20px" }} />
@@ -189,10 +142,7 @@ const Hero = () => {
           <Row className="mt-3">
             <Col className="d-flex justify-content-end">
               {/* all'onclick della pencil si apre il modal per gestire le info dello user  */}
-              <Pencil
-                style={{ width: "25px", height: "25px", cursor: "pointer" }}
-                onClick={handleShow}
-              />
+              {props.flag && <Pencil style={{ width: "25px", height: "25px", cursor: "pointer" }} onClick={handleShow} />}
             </Col>
           </Row>
           <Row className="mt-3">
@@ -203,11 +153,7 @@ const Hero = () => {
                   {userInfo.name} {userInfo.surname}
                 </Col>
                 <Col className="d-flex align-items-center">
-                  <Button
-                    variant="outline-primary"
-                    className="rounded-pill"
-                    style={{ borderStyle: "dashed" }}
-                  >
+                  <Button variant="outline-primary" className="rounded-pill" style={{ borderStyle: "dashed" }}>
                     <ShieldCheck className="me-2" /> Aggiungi badge di verifica
                   </Button>
                 </Col>
@@ -256,22 +202,13 @@ const Hero = () => {
               >
                 Disponibili per
               </Button>
-              <Button
-                variant="outline-primary"
-                className="rounded-pill mt-2 me-2 px-3"
-              >
+              <Button variant="outline-primary" className="rounded-pill mt-2 me-2 px-3">
                 Aggiungi sezione del profilo
               </Button>
-              <Button
-                variant="outline-primary"
-                className="rounded-pill mt-2 me-2 px-3"
-              >
+              <Button variant="outline-primary" className="rounded-pill mt-2 me-2 px-3">
                 Migliora profilo
               </Button>
-              <Button
-                variant="outline-secondary"
-                className="rounded-pill mt-2 px-3"
-              >
+              <Button variant="outline-secondary" className="rounded-pill mt-2 px-3">
                 Risorse
               </Button>
             </Col>
@@ -281,10 +218,7 @@ const Hero = () => {
               <Row className="slider-card mx-0 border border-light-subtle rounded p-2 d-flex">
                 <Col className="d-flex flex-column ">
                   <p className="mb-0">
-                    <span className="fw-bold">
-                      Mostra ai recruiter che sei disponibile a lavorare:
-                    </span>{" "}
-                    sei tu a decidere chi può vedere questa informazione
+                    <span className="fw-bold">Mostra ai recruiter che sei disponibile a lavorare:</span> sei tu a decidere chi può vedere questa informazione
                   </p>
                   <p className="text-primary" style={{ cursor: "pointer" }}>
                     Inizia
@@ -297,10 +231,7 @@ const Hero = () => {
               <Row className="slider-card mx-0 border border-light-subtle rounded p-2 d-flex">
                 <Col className="d-flex flex-column ">
                   <p className="mb-0">
-                    <span className="fw-bold">
-                      Fai sapere che stai facendo selezione
-                    </span>{" "}
-                    e attrai candidati qualificati.
+                    <span className="fw-bold">Fai sapere che stai facendo selezione</span> e attrai candidati qualificati.
                   </p>
                   <p className="text-primary" style={{ cursor: "pointer" }}>
                     Inizia
@@ -313,11 +244,7 @@ const Hero = () => {
               <Row className="slider-card mx-0 border border-light-subtle rounded p-2 d-flex">
                 <Col className="d-flex flex-column ">
                   <p className="mb-0">
-                    <span className="fw-bold">
-                      Metti in risalto i tuoi servizi
-                    </span>{" "}
-                    in un&apos;apposita sezione sul tuo profilo, così sarà più
-                    facile trovarti.
+                    <span className="fw-bold">Metti in risalto i tuoi servizi</span> in un&apos;apposita sezione sul tuo profilo, così sarà più facile trovarti.
                   </p>
                   <p className="text-primary" style={{ cursor: "pointer" }}>
                     Inizia

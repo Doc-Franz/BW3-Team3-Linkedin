@@ -5,60 +5,30 @@ import Interest from "./Interest";
 import Hero from "./Hero";
 import Dashboard from "./Dashboard";
 import SideBarRight from "./SideBarRight";
+import { fetchProfile } from "../redux/actions/profileActions";
 import { Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { tokenAPI } from "../assets/js/token";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 const ProfilePage = () => {
-  const { id } = useParams(); // Ottieni l'ID dall'URL
-
-  const [profileData, setProfileData] = useState(null);
-
-  const [setError] = useState(null);
+  const dispatch = useDispatch();
+  const { id } = useParams();
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const response = await fetch(
-          `https://striveschool-api.herokuapp.com/api/profile/${id}`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: tokenAPI,
-              contentType: "application/json",
-            },
-          }
-        );
-
-        if (response.ok) {
-          const data = await response.json();
-          setProfileData(data);
-        } else {
-          setError("Error fetching results");
-        }
-      } catch (error) {
-        console.log(error);
-        setError(error.message);
-      } finally {
-        setError("Error fetching results");
-      }
-    };
-
-    fetchProfile();
-  }, [id, setError]);
+    dispatch(fetchProfile(id));
+  }, [id]);
 
   return (
     <Container>
       <Row>
         <Col md={9}>
-          {/* Passa i dati del profilo ai sottocomponenti */}
-          <Hero profileData={profileData} />
-          <Dashboard profileData={profileData} />
-          <Experience profileData={profileData} />
-          <Formations profileData={profileData} />
-          <Competence profileData={profileData} />
-          <Interest profileData={profileData} />
+          <Hero flag={false} />
+          <Dashboard flag={false} />
+          <Experience flag={false} />
+          <Formations flag={false} />
+          <Competence flag={false} />
+          <Interest />
         </Col>
         <Col md={3}>
           <SideBarRight />
