@@ -28,7 +28,7 @@ function MyNavbar() {
   const userInfo = useSelector((state) => state.hero.content);
 
   useEffect(() => {
-    dispatch(fetchProfile());
+    dispatch(fetchProfile("me"));
   }, [dispatch]);
 
   useEffect(() => {
@@ -116,7 +116,17 @@ function MyNavbar() {
                       <Dropdown>
                         <Dropdown.Toggle variant="white" id="dropdown-basic">
                           <div style={{ display: "flex", alignItems: "center" }}>
-                            {userInfo && <Image style={{ height: "24px", width: "24px", objectFit: "cover" }} roundedCircle src={userInfo.image} />}
+                            {userInfo && (
+                              <Image
+                                style={{
+                                  height: "24px",
+                                  width: "24px",
+                                  objectFit: "cover"
+                                }}
+                                roundedCircle
+                                src={userInfo.image}
+                              />
+                            )}
                           </div>
                         </Dropdown.Toggle>
 
@@ -125,7 +135,16 @@ function MyNavbar() {
                           <div className="p-3 border-bottom d-flex align-items-center">
                             {userInfo && (
                               <>
-                                <Image style={{ height: "50px", width: "50px", objectFit: "cover", marginRight: "10px" }} roundedCircle src={userInfo.image} />
+                                <Image
+                                  style={{
+                                    height: "50px",
+                                    width: "50px",
+                                    objectFit: "cover",
+                                    marginRight: "10px"
+                                  }}
+                                  roundedCircle
+                                  src={userInfo.image}
+                                />
                                 <div>
                                   <h6 className="mb-1">{userInfo.name}</h6>
                                   <small className="text-muted">{userInfo.title}</small>
@@ -137,7 +156,13 @@ function MyNavbar() {
                           {/* bottone x profilo */}
                           <div className="px-3 py-2">
                             <Link to={"/profile"}>
-                              <Button variant="outline-primary" className="w-100">
+                              <Button
+                                variant="outline-primary"
+                                className="w-100"
+                                onClick={() => {
+                                  dispatch(fetchProfile("me"));
+                                }}
+                              >
                                 Visualizza profilo
                               </Button>
                             </Link>

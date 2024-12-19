@@ -8,7 +8,7 @@ const Interest = () => {
   const carouselData = {
     aziende: [
       {
-        logo: "https://media.licdn.com/dms/image/v2/C4E0BAQHYgix-Ynux1A/company-logo_100_100/company-logo_100_100/0/1646830188798/epicodeschool_logo?e=1742428800&amp;v=beta&amp;t=1545nc7H976MH9PquSOoKQx-4ziZtAD1DU3H-k2vuig",
+        logo: "https://cdn4.iconfinder.com/data/icons/logos-brands-7/512/google_logo-google_icongoogle-512.png",
         title: "Google",
         subtitle: "126.762 follower",
         period: "2021 - presente",
@@ -16,7 +16,7 @@ const Interest = () => {
         id: 1
       },
       {
-        logo: "https://media.licdn.com/dms/image/v2/C4E0BAQHYgix-Ynux1A/company-logo_100_100/company-logo_100_100/0/1646830188798/epicodeschool_logo?e=1742428800&amp;v=beta&amp;t=1545nc7H976MH9PquSOoKQx-4ziZtAD1DU3H-k2vuig",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/768px-Microsoft_logo.svg.png",
         title: "Microsoft",
         subtitle: "98.123 follower",
         period: "2019 - 2022",
@@ -26,7 +26,7 @@ const Interest = () => {
     ],
     scuole: [
       {
-        logo: "https://media.licdn.com/dms/image/v2/C4E0BAQHYgix-Ynux1A/company-logo_100_100/company-logo_100_100/0/1646830188798/epicodeschool_logo?e=1742428800&amp;v=beta&amp;t=1545nc7H976MH9PquSOoKQx-4ziZtAD1DU3H-k2vuig",
+        logo: "https://media.licdn.com/dms/image/v2/C4E0BAQHYgix-Ynux1A/company-logo_200_200/company-logo_200_200/0/1646830188798/epicodeschool_logo?e=1742428800&v=beta&t=TiKUrPLS9Hcc1h5N0em1DnUn54bzV-w-MWVZdwskq7Q",
         title: "EPICODE School",
         subtitle: "1234 follower",
         period: "2020 - 2023",
@@ -34,7 +34,7 @@ const Interest = () => {
         id: 3
       },
       {
-        logo: "https://media.licdn.com/dms/image/v2/C4E0BAQHYgix-Ynux1A/company-logo_100_100/company-logo_100_100/0/1646830188798/epicodeschool_logo?e=1742428800&amp;v=beta&amp;t=1545nc7H976MH9PquSOoKQx-4ziZtAD1DU3H-k2vuig",
+        logo: "https://media.licdn.com/dms/image/v2/C4E0BAQHYgix-Ynux1A/company-logo_200_200/company-logo_200_200/0/1646830188798/epicodeschool_logo?e=1742428800&v=beta&t=TiKUrPLS9Hcc1h5N0em1DnUn54bzV-w-MWVZdwskq7Q",
         title: "Tech University",
         subtitle: "4321 follower",
         period: "2018 - 2022",
@@ -89,14 +89,8 @@ const Interest = () => {
               {carouselData[selectedCategory].map((item, index) => (
                 <Col md={5} key={index} className="mb-3">
                   <Card style={{ border: "none" }}>
-                    <Card.Body className="d-flex p-0">
-                      <img
-                        src="https://media.licdn.com/dms/image/v2/C4E0BAQHYgix-Ynux1A/company-logo_100_100/company-logo_100_100/0/1646830188798/epicodeschool_logo?e=1742428800&amp;v=beta&amp;t=1545nc7H976MH9PquSOoKQx-4ziZtAD1DU3H-k2vuig"
-                        alt={`Logo di ${item.title}`}
-                        width="48"
-                        height="48"
-                        style={{ borderRadius: "50%" }}
-                      />
+                    <Card.Body className="d-flex p-0 gap-3">
+                      <img src={item.logo} alt={`Logo di ${item.title}`} width="48" height="48" style={{ borderRadius: "50%" }} />
                       <div>
                         <Card.Title>{item.title}</Card.Title>
                         <Card.Subtitle className="mb-2">{item.subtitle}</Card.Subtitle>

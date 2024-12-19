@@ -9,12 +9,12 @@ body {
 }
 
 .links:hover {
-  color: #0A6BC4;
+  color: #0a6bc4;
   text-decoration: underline;
 }
 
 .btnExp:hover {
-  background-color: #F3F3F3;
+  background-color: #f3f3f3;
 }
 
 .btnShowExp:hover {
@@ -50,4 +50,10 @@ body {
 
 .cuadro {
   color: #c37d16;
+}
+
+.collegati:hover {
+  border: 3px solid gray;
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }

@@ -1,7 +1,7 @@
 import { Card, Button, Row, Col } from "react-bootstrap";
 import { BsEye, BsGraphUp, BsSearch, BsPencil, BsFileText, BsFillPeopleFill, BsArrowRight } from "react-icons/bs";
 
-function Dashboard() {
+function Dashboard(props) {
   return (
     <>
       {/* Sezione Consigliato per te */}
@@ -75,13 +75,17 @@ function Dashboard() {
         <Card.Body>
           <div className="d-flex justify-content-between align-items-center mb-3">
             <h4 className="mb-0">Attività</h4>
-            <div>
-              <Button variant="light" className="rounded-pill text-primary border border-primary">
-                Crea un post
-              </Button>
+            {props.flag && (
+              <>
+                <div>
+                  <Button variant="light" className="rounded-pill text-primary border border-primary me-2">
+                    Crea un post
+                  </Button>
 
-              <BsPencil className="me-1" />
-            </div>
+                  <BsPencil className="me-1" />
+                </div>
+              </>
+            )}
           </div>
           <p className="text-primary mb-1">261 follower</p>
           <strong className="text-muted mb-3">Non hai ancora pubblicato nulla</strong>

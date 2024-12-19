@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { updateProfile, uploadProfileImage } from "../redux/actions/profileActions";
 
-const Hero = () => {
+const Hero = (props) => {
   const dispatch = useDispatch();
 
   // settings dello slider
@@ -125,13 +125,25 @@ const Hero = () => {
             <Image
               className="p-0 rounded-circle border border-4 border-white"
               src={userInfo.image}
-              style={{ width: "150px", height: "150px", position: "absolute", left: "30px", top: "90px", cursor: "pointer" }}
+              style={{
+                width: "150px",
+                height: "150px",
+                position: "absolute",
+                left: "30px",
+                top: "90px",
+                cursor: "pointer"
+              }}
             />
 
             <Col className="d-flex justify-content-end mt-3">
               <div
                 className="d-flex align-items-center justify-content-center rounded-circle"
-                style={{ width: "40px", height: "40px", backgroundColor: "white", cursor: "pointer" }}
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  backgroundColor: "white",
+                  cursor: "pointer"
+                }}
               >
                 <CameraFill style={{ width: "20px", height: "20px" }} />
               </div>
@@ -140,7 +152,7 @@ const Hero = () => {
           <Row className="mt-3">
             <Col className="d-flex justify-content-end">
               {/* all'onclick della pencil si apre il modal per gestire le info dello user  */}
-              <Pencil style={{ width: "25px", height: "25px", cursor: "pointer" }} onClick={handleEdit} />
+              {props.flag && <Pencil style={{ width: "25px", height: "25px", cursor: "pointer" }} onClick={handleEdit} />}
             </Col>
           </Row>
           <Row className="mt-3">
