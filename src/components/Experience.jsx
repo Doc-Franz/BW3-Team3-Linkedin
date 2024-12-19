@@ -7,7 +7,16 @@ const EsperienzaCard = ({ exp, onEdit }) => {
   return (
     <Row style={{ borderBottom: "1px solid lightgrey" }}>
       <Col md={1} className="mt-2">
-        <Image width="48" height="48" src={exp.image} alt={`Logo di ${exp.company}`} roundedCircle />
+        <Image
+          width="48"
+          height="48"
+          src={
+            exp.image ||
+            "https://media.licdn.com/dms/image/v2/C4E0BAQHYgix-Ynux1A/company-logo_100_100/company-logo_100_100/0/1646830188798/epicodeschool_logo?e=1742428800&amp;v=beta&amp;t=1545nc7H976MH9PquSOoKQx-4ziZtAD1DU3H-k2vuig"
+          }
+          alt={`Logo di ${exp.company}`}
+          roundedCircle
+        />
       </Col>
       <Col md={10} className="mt-2">
         <Card.Title>{exp.role}</Card.Title>
