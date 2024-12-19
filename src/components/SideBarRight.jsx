@@ -82,7 +82,7 @@ function SideBarRight() {
                     </Link>
                   </div>
                   <small className="text-muted">{userInfo.title}</small> <br />
-                  <Button className="text-black bg-white border-dark collegati rounded-pill fw-bold" size="lg">
+                  <Button className="text-black bg-white border-dark collegati rounded-pill fw-bold" size="sm">
                     <i className=" text-black  bi bi-person-fill-add"></i> Collegati
                   </Button>
                 </div>
