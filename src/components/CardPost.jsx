@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Card, Row, Col, Image, Form } from "react-bootstrap";
+import { Card, Row, Col, Image, Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { createPost, uploadPostImage } from "../redux/actions/homepageActions";
 
@@ -77,9 +77,9 @@ function CardPost() {
       <Row className="text-center mt-3">
         <Col className="d-flex ">
           <Form.Label
-            className="text-black fw-bold text-decoration-none ms-2"
+            className="btn btn-light text-black fw-bold text-decoration-none ms-2"
             style={{
-              cursor: "pointer"
+              backgroundColor: "white"
             }}
           >
             <i className="bi bi-image text-primary me-1"></i> Contenuti multimediali
@@ -87,14 +87,14 @@ function CardPost() {
           </Form.Label>
         </Col>
         <Col>
-          <button type="button" className="btn btn-link text-black fw-bold text-decoration-none">
+          <Button className="btn btn-light text-black fw-bold text-decoration-none" style={{ backgroundColor: "white" }}>
             <i className="bi bi-calendar3 cuadro"></i> Evento
-          </button>
+          </Button>
         </Col>
         <Col>
-          <button type="button" className="btn btn-link text-black fw-bold text-decoration-none">
+          <Button className="btn btn-light text-black fw-bold text-decoration-none" style={{ backgroundColor: "white" }}>
             <i className="bi bi-layout-text-window-reverse cuadro"></i> Scrivi un articolo
-          </button>
+          </Button>
         </Col>
       </Row>
     </Card>
