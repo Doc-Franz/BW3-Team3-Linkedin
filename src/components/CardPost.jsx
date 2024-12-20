@@ -1,22 +1,16 @@
 import "react";
-import { Card, Button, Row, Col } from "react-bootstrap";
+import { Card, Button, Row, Col, Image } from "react-bootstrap";
+import { useSelector } from "react-redux";
 
 function CardPost() {
+  const userInfo = useSelector((state) => state.hero.content);
   return (
     <Card className="my-3 shadow-sm">
       <form>
         <Row className="align-items-center justify-content-left m-2 mt-3">
           {/* Sezione Avatar */}
           <Col xs="auto">
-            <div
-              className="d-flex"
-              style={{
-                width: "50px",
-                height: "50px",
-                borderRadius: "50%",
-                backgroundColor: "#ccc",
-              }}
-            ></div>
+            {userInfo && <Image style={{ height: "70px", width: "70px", objectFit: "cover", border: "2px solid white" }} roundedCircle src={userInfo.image} />}
           </Col>
 
           {/* Input per "Crea un post" */}
@@ -30,7 +24,7 @@ function CardPost() {
                   style={{
                     borderRadius: "50px",
                     border: "1px solid #ddd",
-                    padding: "8px 16px",
+                    padding: "8px 16px"
                   }}
                 />
               </Card.Text>
@@ -41,31 +35,18 @@ function CardPost() {
         {/* Opzioni Contenuti */}
         <Row className="text-center mt-3">
           <Col className="d-flex ">
-            <Button
-              variant="link"
-              className="text-black fw-bold text-decoration-none"
-              type="button"
-            >
+            <Button variant="link" className="text-black fw-bold text-decoration-none" type="button">
               <i className="bi bi-image text-black"></i> Contenuti multimediali
             </Button>
           </Col>
           <Col>
-            <Button
-              variant="link"
-              className="text-black fw-bold text-decoration-none"
-              type="button"
-            >
+            <Button variant="link" className="text-black fw-bold text-decoration-none" type="button">
               <i className="bi bi-calendar3 text-black"></i> Evento
             </Button>
           </Col>
           <Col>
-            <Button
-              variant="link"
-              className="text-black fw-bold text-decoration-none"
-              type="button"
-            >
-              <i className="bi bi-layout-text-window-reverse text-black"></i>{" "}
-              Scrivi un articolo
+            <Button variant="link" className="text-black fw-bold text-decoration-none" type="button">
+              <i className="bi bi-layout-text-window-reverse text-black"></i> Scrivi un articolo
             </Button>
           </Col>
         </Row>
