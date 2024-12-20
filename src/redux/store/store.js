@@ -5,6 +5,7 @@ import homepageReducer from "../reducers/homepageReducer";
 import jobReducer from "../reducers/jobReducer";
 import sideBarRightReducer from "../reducers/SideBarRightReducer";
 import jobMoreChanceReducer from "../reducers/JobMoreChanceReducer";
+import commentsReducer from "../reducers/commentsReducer";
 
 const rootReducer = combineReducers({
   hero: heroReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   homepage: homepageReducer,
   jobs: jobReducer,
   jobMoreChance: jobMoreChanceReducer,
-  sideBarRightReducer: sideBarRightReducer
+  sideBarRightReducer: sideBarRightReducer,
+  comments: commentsReducer
 });
 
 const store = configureStore({
