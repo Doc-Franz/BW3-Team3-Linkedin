@@ -1,8 +1,8 @@
 import { Col, Container, Image, ListGroup, Row } from "react-bootstrap";
-import { ArrowRight, Link, X } from "react-bootstrap-icons";
+import { ArrowRight, Linkedin, X } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
 
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const JobFromSearch = () => {
   const { jobToSearch } = useParams();
@@ -10,7 +10,7 @@ const JobFromSearch = () => {
 
   // Array che contiente le info del job dal search
   const jobsFromSearch = useSelector((state) => state.jobMoreChance.content.data);
-  const jobsFromSearchReversed = Array.isArray(jobsFromSearch) ? jobsFromSearch.slice().reverse().slice(0, 4) : [];
+  const jobsFromSearchReversed = Array.isArray(jobsFromSearch) ? jobsFromSearch.slice().reverse().slice(0, 12) : [];
 
   return (
     <Container style={{ marginTop: "90px" }}>
@@ -24,6 +24,7 @@ const JobFromSearch = () => {
                 </Col>
               </Row>
               <Row className="text-secondary">
+                {" "}
                 <Col>{jobsFromSearch.length} risultati</Col>
               </Row>
             </ListGroup.Item>
@@ -56,7 +57,9 @@ const JobFromSearch = () => {
                                 hour: "2-digit",
                                 minute: "2-digit"
                               })}{" "}
-                              • <span className="text-success mx-1 fw-semibold">Invia una delle prime candidature </span>
+                              • <span className="text-success mx-1 fw-semibold">Invia una delle prime candidature •</span>
+                              <Linkedin className="me-1 text-primary" />
+                              Candidatura semplice
                             </Col>
                           </Row>
                         </Col>

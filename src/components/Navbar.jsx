@@ -46,6 +46,7 @@ function MyNavbar() {
     const jobToSearch = e.target.elements.searchProfile.value;
     dispatch(fillJobsMoreChancePage(jobToSearch));
     navigate(`/jobs/${jobToSearch}`);
+    e.target.elements.searchProfile.value = "";
   };
 
   return (
