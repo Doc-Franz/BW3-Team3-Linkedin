@@ -1,5 +1,5 @@
 import { FILL_HOMEPAGE } from "../actions/homepageActions";
-
+import { ADD_POST_HOMEPAGE } from "../actions/homepageActions";
 const initialState = {
   content: []
 };
@@ -10,6 +10,11 @@ const homepageReducer = (state = initialState, action) => {
       return {
         ...state,
         content: action.payload
+      };
+    case ADD_POST_HOMEPAGE:
+      return {
+        ...state,
+        content: [...state.content, action.payload]
       };
 
     default:
