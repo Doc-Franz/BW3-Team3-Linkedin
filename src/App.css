@@ -56,3 +56,7 @@ body {
   border: 2px solid gray;
   box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.3);
 }
+
+.post-dropdown::after {
+  display: none;
+}

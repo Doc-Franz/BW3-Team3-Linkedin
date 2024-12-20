@@ -1,4 +1,4 @@
-import { Card, CardBody, Col, Container, Image, ListGroup, Row } from "react-bootstrap";
+import { Card, CardBody, Col, Container, Dropdown, Image, ListGroup, Row } from "react-bootstrap";
 import { HandThumbsUp, ChatText, Arrow90degRight, Send, X, ThreeDots, HandThumbsUpFill, GlobeEuropeAfrica } from "react-bootstrap-icons";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,6 +18,7 @@ const Homepage = () => {
 
   const postHomepage = useSelector((state) => state.homepage.content);
   const postHomepageReversed = postHomepage.slice().reverse().slice(0, 20);
+  const userInfo = useSelector((state) => state.hero.content);
 
   return (
     <>
@@ -51,7 +52,36 @@ const Homepage = () => {
                       </Row>
                     </Col>
                     <Col className="d-flex justify-content-end">
-                      <ThreeDots className="fs-3 me-3" style={{ cursor: "pointer" }} /> <X className="fs-3" style={{ cursor: "pointer" }} />
+                      <Dropdown align={"end"}>
+                        <Dropdown.Toggle
+                          id="dropdown-basic"
+                          style={{
+                            fontSize: "14px",
+                            backgroundColor: "transparent",
+                            border: "none",
+                            boxShadow: "none",
+                            padding: "0",
+                            color: "black"
+                          }}
+                          className="post-dropdown"
+                        >
+                          <ThreeDots
+                            className="fs-3 me-3"
+                            style={{ cursor: "pointer" }}
+                            onClick={() => {
+                              console.log(post.user._id);
+                            }}
+                          />
+                        </Dropdown.Toggle>
+
+                        {post.user._id === userInfo._id && (
+                          <Dropdown.Menu>
+                            <Dropdown.Item href="#">Modifica Post 🖋️</Dropdown.Item>
+                            <Dropdown.Item href="#">Elimina Post 🗑️</Dropdown.Item>
+                          </Dropdown.Menu>
+                        )}
+                      </Dropdown>
+                      <X className="fs-3" style={{ cursor: "pointer" }} />
                     </Col>
                   </Row>
 
