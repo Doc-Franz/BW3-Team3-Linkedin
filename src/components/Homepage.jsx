@@ -1,17 +1,35 @@
-import { Card, CardBody, Col, Container, Image, ListGroup, Row } from "react-bootstrap";
-import { HandThumbsUp, ChatText, Arrow90degRight, Send, X, ThreeDots, HandThumbsUpFill, GlobeEuropeAfrica } from "react-bootstrap-icons";
+import {
+  Card,
+  CardBody,
+  Col,
+  Container,
+  Image,
+  ListGroup,
+  Row,
+} from "react-bootstrap";
+import {
+  HandThumbsUp,
+  ChatText,
+  Arrow90degRight,
+  Send,
+  X,
+  ThreeDots,
+  HandThumbsUpFill,
+  GlobeEuropeAfrica,
+} from "react-bootstrap-icons";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchHomepage } from "../redux/actions/homepageActions";
 import SideBarLeft from "./SideBarLeft";
 import SidebarRightHomepage from "./SidebarRightHomepage";
+import CardPost from "./CardPost";
 
 const Homepage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchHomepage());
-  }, []);
+  }, [dispatch]);
 
   return (
     <Container>
@@ -19,7 +37,9 @@ const Homepage = () => {
         <Col md={3}>
           <SideBarLeft />
         </Col>
+
         <Col md={6}>
+          <CardPost />
           <Card className="mt-3">
             <Row className="mt-2 me-1">
               <Col className="col-9">
@@ -31,6 +51,7 @@ const Homepage = () => {
                       style={{ maxHeight: "100px", objectFit: "cover" }}
                     />
                   </Col>
+
                   <Col className="d-flex flex-column">
                     <p className="fw-semibold fs-4 mb-0">BMW Group Italia</p>
                     <p className="fs-6 text-secondary mb-0">110.676 follower</p>
@@ -41,14 +62,20 @@ const Homepage = () => {
                 </Row>
               </Col>
               <Col className="d-flex justify-content-end">
-                <ThreeDots className="fs-3 me-3" style={{ cursor: "pointer" }} /> <X className="fs-3" style={{ cursor: "pointer" }} />
+                <ThreeDots
+                  className="fs-3 me-3"
+                  style={{ cursor: "pointer" }}
+                />{" "}
+                <X className="fs-3" style={{ cursor: "pointer" }} />
               </Col>
             </Row>
 
             <CardBody>
               <Row>
                 <Col>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis itaque veritatis, amet suscipit architecto eius eligendi, excepturi
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Reiciendis itaque veritatis, amet suscipit architecto eius
+                  eligendi, excepturi
                 </Col>
               </Row>
             </CardBody>
@@ -63,13 +90,22 @@ const Homepage = () => {
                 <Col className="d-flex align-items-center">
                   <div
                     className="d-flex align-items-center justify-content-center rounded-circle me-2"
-                    style={{ width: "20px", height: "20px", backgroundColor: "blue", cursor: "pointer" }}
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                      backgroundColor: "blue",
+                      cursor: "pointer",
+                    }}
                   >
-                    <HandThumbsUpFill style={{ width: "15px", height: "15px", fill: "white" }} />
+                    <HandThumbsUpFill
+                      style={{ width: "15px", height: "15px", fill: "white" }}
+                    />
                   </div>{" "}
                   <ListGroup.Item>23</ListGroup.Item>
                 </Col>
-                <Col className="d-flex justify-content-end text-secondary">2 commenti • 4 diffusioni post</Col>
+                <Col className="d-flex justify-content-end text-secondary">
+                  2 commenti • 4 diffusioni post
+                </Col>
               </Row>
               <hr />
             </Card.Body>
