@@ -5,6 +5,7 @@ import Homepage from "./components/Homepage";
 import Profile from "./components/Profile";
 import Jobs from "./components/Jobs";
 import ProfilePage from "./components/ProfilePage";
+import JobFromSearch from "./components/JobFromSearch";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile/:id" element={<ProfilePage />} />
         <Route path="/jobs" element={<Jobs />} />
+        <Route path="/jobs/:jobToSearch" element={<JobFromSearch />} />
       </Routes>
     </BrowserRouter>
   );
