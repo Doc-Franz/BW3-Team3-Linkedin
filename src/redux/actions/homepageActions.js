@@ -84,3 +84,49 @@ export const uploadPostImage = (postId, imageFile) => {
     }
   };
 };
+
+// Fetch di Modifica Post
+export const updatePost = (postId, updatedPost) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(`https://striveschool-api.herokuapp.com/api/posts/${postId}`, {
+        method: "PUT",
+        headers: {
+          Authorization: tokenAPI,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(updatedPost)
+      });
+
+      if (response.ok) {
+        console.log("Post aggiornato con successo");
+        dispatch(fetchHomepage());
+      } else {
+        console.error("Errore durante l'aggiornamento del post:", await response.text());
+      }
+    } catch (error) {
+      console.error("Errore nella fetch di updatePost:", error);
+    }
+  };
+};
+
+// Fetch di Cancellazione Post
+export const deletePost = (postId) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(`https://striveschool-api.herokuapp.com/api/posts/${postId}`, {
+        method: "DELETE",
+        headers: { Authorization: tokenAPI }
+      });
+
+      if (response.ok) {
+        console.log("Post eliminato con successo");
+        dispatch(fetchHomepage());
+      } else {
+        console.error("Errore durante l'eliminazione del post:", await response.text());
+      }
+    } catch (error) {
+      console.error("Errore nella fetch di deletePost:", error);
+    }
+  };
+};

@@ -1,6 +1,6 @@
-import { Card, CardBody, Col, Container, Dropdown, Image, ListGroup, Row } from "react-bootstrap";
+import { Card, CardBody, Col, Container, Dropdown, Form, Image, ListGroup, Row } from "react-bootstrap";
 import { HandThumbsUp, ChatText, Arrow90degRight, Send, X, ThreeDots, HandThumbsUpFill, GlobeEuropeAfrica } from "react-bootstrap-icons";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchHomepage } from "../redux/actions/homepageActions";
 import { fetchProfile } from "../redux/actions/profileActions";
@@ -8,18 +8,54 @@ import SideBarLeft from "./SideBarLeft";
 import SidebarRightHomepage from "./SidebarRightHomepage";
 import Footer from "./Footer";
 import CardPost from "./CardPost";
+import { updatePost, deletePost } from "../redux/actions/homepageActions";
 
 const Homepage = () => {
   const dispatch = useDispatch();
+  const postHomepage = useSelector((state) => state.homepage.content);
+  const postHomepageReversed = postHomepage.slice().reverse().slice(0, 20);
+  const userInfo = useSelector((state) => state.hero.content);
+
+  const [editingPostId, setEditingPostId] = useState(null);
+  const [editedText, setEditedText] = useState("");
 
   useEffect(() => {
     dispatch(fetchProfile("me"));
     dispatch(fetchHomepage());
   }, []);
 
-  const postHomepage = useSelector((state) => state.homepage.content);
-  const postHomepageReversed = postHomepage.slice().reverse().slice(0, 20);
-  const userInfo = useSelector((state) => state.hero.content);
+  const handleEditClick = (postId, currentText) => {
+    setEditingPostId(postId);
+    setEditedText(currentText); // Popola il campo con il testo corrente
+  };
+
+  const handleTextChange = (e) => {
+    setEditedText(e.target.value);
+  };
+
+  const handleKeyPress = async (e, postId) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+
+      if (editedText.trim() === "") {
+        alert("Il testo del post non può essere vuoto.");
+        return;
+      }
+
+      // Aggiorna il post tramite fetch PUT
+      await dispatch(updatePost(postId, { text: editedText }));
+
+      // Reset delle variabili di stato
+      setEditingPostId(null);
+      setEditedText("");
+    }
+  };
+
+  const handleDeletePost = (postId) => {
+    if (window.confirm("Sei sicuro di voler eliminare questo post?")) {
+      dispatch(deletePost(postId));
+    }
+  };
 
   return (
     <>
@@ -78,8 +114,20 @@ const Homepage = () => {
 
                         {post.user._id === userInfo._id && (
                           <Dropdown.Menu>
-                            <Dropdown.Item href="#">Modifica Post 🖋️</Dropdown.Item>
-                            <Dropdown.Item href="#">Elimina Post 🗑️</Dropdown.Item>
+                            <Dropdown.Item
+                              onClick={() => handleEditClick(post._id, post.text)}
+                              className="d-flex align-items-center text-primary fw-bold"
+                              style={{ cursor: "pointer", fontSize: "14px" }}
+                            >
+                              <i className="bi bi-pencil me-2"></i> Modifica Post
+                            </Dropdown.Item>
+                            <Dropdown.Item
+                              onClick={() => handleDeletePost(post._id)}
+                              className="d-flex align-items-center text-danger fw-bold"
+                              style={{ cursor: "pointer", fontSize: "14px" }}
+                            >
+                              <i className="bi bi-trash3 me-2"></i> Elimina Post
+                            </Dropdown.Item>
                           </Dropdown.Menu>
                         )}
                       </Dropdown>
@@ -89,7 +137,13 @@ const Homepage = () => {
 
                   <CardBody>
                     <Row>
-                      <Col>{post.text}</Col>
+                      <Col>
+                        {editingPostId === post._id ? (
+                          <Form.Control type="text" value={editedText} onChange={handleTextChange} onKeyPress={(e) => handleKeyPress(e, post._id)} autoFocus />
+                        ) : (
+                          post.text
+                        )}
+                      </Col>
                     </Row>
                   </CardBody>
 
