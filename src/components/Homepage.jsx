@@ -33,7 +33,7 @@ const Homepage = () => {
 
   const handleEditClick = (postId, currentText) => {
     setEditingPostId(postId);
-    setEditedText(currentText); // Popola il campo con il testo corrente
+    setEditedText(currentText);
   };
 
   const handleTextChange = (e) => {
