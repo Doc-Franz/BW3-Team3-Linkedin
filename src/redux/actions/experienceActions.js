@@ -25,7 +25,7 @@ export const fetchExperiences = (userId) => {
 };
 
 // Update experience (PUT)
-export const updateExperience = (userId, expId, updatedData) => {
+export const updateExperience = (userId, expId, updatedData, imageFile) => {
   return async (dispatch) => {
     try {
       const response = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences/${expId}`, {
@@ -37,11 +37,27 @@ export const updateExperience = (userId, expId, updatedData) => {
         body: JSON.stringify(updatedData)
       });
 
-      if (response.ok) {
-        dispatch(fetchExperiences(userId));
-      } else {
+      if (!response.ok) {
         console.error("Errore durante l'aggiornamento dell'esperienza");
+        return;
       }
+
+      if (imageFile) {
+        const formData = new FormData();
+        formData.append("experience", imageFile);
+
+        const imageResponse = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences/${expId}/picture`, {
+          method: "POST",
+          headers: { Authorization: tokenAPI },
+          body: formData
+        });
+
+        if (!imageResponse.ok) {
+          console.error("Errore durante il caricamento dell'immagine");
+        }
+      }
+
+      dispatch(fetchExperiences(userId));
     } catch (error) {
       console.error("Errore nella richiesta PUT:", error);
     }
@@ -71,7 +87,7 @@ export const deleteExperience = (userId, expId) => {
 };
 
 // Add experience (POST)
-export const addExperience = (userId, newExperience) => {
+export const addExperience = (userId, newExperience, imageFile) => {
   return async (dispatch) => {
     try {
       const response = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences`, {
@@ -83,11 +99,30 @@ export const addExperience = (userId, newExperience) => {
         body: JSON.stringify(newExperience)
       });
 
-      if (response.ok) {
-        dispatch(fetchExperiences(userId));
-      } else {
+      if (!response.ok) {
         console.error("Errore durante l'inserimento della nuova esperienza");
+        return;
       }
+
+      const createdExperience = await response.json();
+      const expId = createdExperience._id;
+
+      if (imageFile) {
+        const formData = new FormData();
+        formData.append("experience", imageFile);
+
+        const imageResponse = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences/${expId}/picture`, {
+          method: "POST",
+          headers: { Authorization: tokenAPI },
+          body: formData
+        });
+
+        if (!imageResponse.ok) {
+          console.error("Errore durante il caricamento dell'immagine");
+        }
+      }
+
+      dispatch(fetchExperiences(userId));
     } catch (error) {
       console.error("Errore nella richiesta POST:", error);
     }

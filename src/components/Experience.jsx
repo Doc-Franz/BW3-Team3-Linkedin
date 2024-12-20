@@ -3,14 +3,17 @@ import { Row, Col, Card, Image, Button, Modal, Form } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { updateExperience, deleteExperience, addExperience } from "../redux/actions/experienceActions";
 
-const EsperienzaCard = ({ exp, onEdit }) => {
+const EsperienzaCard = ({ exp, onEdit, flag }) => {
   return (
     <Row style={{ borderBottom: "1px solid lightgrey" }}>
       <Col md={1} className="mt-2">
         <Image
           width="48"
           height="48"
-          src="https://media.licdn.com/dms/image/v2/C4E0BAQHYgix-Ynux1A/company-logo_100_100/company-logo_100_100/0/1646830188798/epicodeschool_logo?e=1742428800&amp;v=beta&amp;t=1545nc7H976MH9PquSOoKQx-4ziZtAD1DU3H-k2vuig"
+          src={
+            exp.image ||
+            "https://media.licdn.com/dms/image/v2/C4E0BAQHYgix-Ynux1A/company-logo_100_100/company-logo_100_100/0/1646830188798/epicodeschool_logo?e=1742428800&amp;v=beta&amp;t=1545nc7H976MH9PquSOoKQx-4ziZtAD1DU3H-k2vuig"
+          }
           alt={`Logo di ${exp.company}`}
           roundedCircle
         />
@@ -25,22 +28,25 @@ const EsperienzaCard = ({ exp, onEdit }) => {
         <Card.Text>{exp.description}</Card.Text>
       </Col>
       <Col md={1} className="mt-2">
-        <Button variant="transparent" onClick={() => onEdit(exp)}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-pencil" viewBox="0 0 16 16">
-            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325" />
-          </svg>
-        </Button>
+        {flag && (
+          <Button variant="transparent" onClick={() => onEdit(exp)}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-pencil" viewBox="0 0 16 16">
+              <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325" />
+            </svg>
+          </Button>
+        )}
       </Col>
     </Row>
   );
 };
 
-const Experience = () => {
+const Experience = (props) => {
   const experiences = useSelector((state) => state.experience.experiences);
   const userInfo = useSelector((state) => state.hero.content);
   const [showModal, setShowModal] = useState(false);
   const [currentExperience, setCurrentExperience] = useState(null);
   const [formData, setFormData] = useState({});
+  const [selectedFile, setSelectedFile] = useState(null);
   const [isNewExperience, setIsNewExperience] = useState(false);
   const dispatch = useDispatch();
 
@@ -77,12 +83,33 @@ const Experience = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
+  };
+
   const handleSave = async () => {
-    if (isNewExperience) {
-      dispatch(addExperience(userInfo._id, formData));
-    } else {
-      dispatch(updateExperience(currentExperience.user, currentExperience._id, formData));
+    const userId = isNewExperience ? userInfo?._id : currentExperience?.user;
+
+    if (!userId) {
+      alert("Errore: ID utente non trovato!");
+      return;
     }
+
+    const experienceData = {
+      role: formData.role,
+      company: formData.company,
+      startDate: formData.startDate,
+      endDate: formData.endDate,
+      area: formData.area,
+      description: formData.description
+    };
+
+    if (isNewExperience) {
+      dispatch(addExperience(userId, experienceData, selectedFile));
+    } else {
+      dispatch(updateExperience(userId, currentExperience._id, experienceData, selectedFile));
+    }
+
     setShowModal(false);
   };
 
@@ -97,14 +124,16 @@ const Experience = () => {
         <Card.Body className="pb-0">
           <div className="d-flex align-items-center mb-3">
             <h3 className="me-auto">Esperienza</h3>
-            <Button className="btnExp rounded-circle" variant="transparent" onClick={handleAdd}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-plus-lg" viewBox="0 0 16 16">
-                <path d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
-              </svg>
-            </Button>
+            {props.flag && (
+              <Button className="btnExp rounded-circle" variant="transparent" onClick={handleAdd}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-plus-lg" viewBox="0 0 16 16">
+                  <path d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+                </svg>
+              </Button>
+            )}
           </div>
 
-          {experiences.length > 0 && experiences.map((exp) => <EsperienzaCard key={exp._id} exp={exp} onEdit={handleEdit} />)}
+          {experiences.length > 0 && experiences.map((exp) => <EsperienzaCard key={exp._id} exp={exp} onEdit={handleEdit} flag={props.flag} />)}
         </Card.Body>
       </Card>
 
@@ -137,6 +166,10 @@ const Experience = () => {
             <Form.Group className="mb-3">
               <Form.Label>Descrizione</Form.Label>
               <Form.Control as="textarea" rows={3} name="description" value={formData.description || ""} onChange={handleInputChange} />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Carica Immagine</Form.Label>
+              <Form.Control type="file" onChange={handleFileChange} />
             </Form.Group>
           </Form>
         </Modal.Body>

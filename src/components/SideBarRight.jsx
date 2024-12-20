@@ -14,15 +14,12 @@ function SideBarRight() {
   useEffect(() => {
     const fetchPersone = async () => {
       try {
-        const response = await fetch(
-          "https://striveschool-api.herokuapp.com/api/profile",
-          {
-            method: "GET",
-            headers: {
-              Authorization: tokenAPI, // Aggiungi "Bearer" se necessario
-            },
+        const response = await fetch("https://striveschool-api.herokuapp.com/api/profile", {
+          method: "GET",
+          headers: {
+            Authorization: tokenAPI // Aggiungi "Bearer" se necessario
           }
-        );
+        });
 
         if (!response.ok) {
           throw new Error("Errore nel recupero dei dati");
@@ -72,15 +69,12 @@ function SideBarRight() {
                   style={{
                     width: "40px",
                     height: "40px",
-                    marginRight: "12px",
+                    marginRight: "12px"
                   }}
                 />
                 <div className="flex-grow-1">
                   <div className="fw-bold">
-                    <Link
-                      className="text-decoration-none"
-                      to={`/profile/${userInfo._id}`}
-                    >
+                    <Link className="text-decoration-none" to={`/profile/${userInfo._id}`}>
                       <span aria-hidden="false">
                         {" "}
                         {userInfo.name} {userInfo.surname}
@@ -88,12 +82,8 @@ function SideBarRight() {
                     </Link>
                   </div>
                   <small className="text-muted">{userInfo.title}</small> <br />
-                  <Button
-                    className="text-black bg-white border-dark collegati rounded-pill fw-bold"
-                    size="lg"
-                  >
-                    <i className=" text-black  bi bi-person-fill-add"></i>{" "}
-                    Collegati
+                  <Button className="text-black bg-white border-dark collegati rounded-pill fw-bold" size="lg">
+                    <i className=" text-black  bi bi-person-fill-add"></i> Collegati
                   </Button>
                 </div>
               </ListGroup.Item>

@@ -1,24 +1,13 @@
-import {
-  Button,
-  Col,
-  Container,
-  Form,
-  Image,
-  Modal,
-  Row,
-} from "react-bootstrap";
+import { Button, Col, Container, Form, Image, Modal, Row } from "react-bootstrap";
 import { CameraFill, Pencil, ShieldCheck, X } from "react-bootstrap-icons";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect } from "react";
-import {
-  updateProfile,
-  updateProfileHero,
-} from "../redux/actions/profileActions";
+import { useState } from "react";
+import { updateProfile, uploadProfileImage } from "../redux/actions/profileActions";
 
-const Hero = () => {
+const Hero = (props) => {
   const dispatch = useDispatch();
 
   // settings dello slider
@@ -27,11 +16,13 @@ const Hero = () => {
     infinite: true,
     speed: 500,
     slidesToShow: 2,
-    slidesToScroll: 2,
+    slidesToScroll: 2
   };
 
   // stato che gestisce il modal
   const [show, setShow] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [formData, setFormData] = useState({});
 
   // funzione che gestisce lo stato del modal
   const handleClose = () => setShow(false);
@@ -41,33 +32,49 @@ const Hero = () => {
   const userInfo = useSelector((state) => state.hero.content);
   const experiences = useSelector((state) => state.experience.experiences);
 
-  // state che controlla l'aggiornamento delle info nella hero
+  const handleEdit = () => {
+    setFormData({
+      name: userInfo.name,
+      surname: userInfo.surname,
+      title: userInfo.title,
+      area: userInfo.area
+    });
+    handleShow();
+  };
 
-  const [updatedInfo, setUpdatedInfo] = useState({
-    name: "",
-    surname: "",
-    title: "",
-    area: "",
-  });
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-  useEffect(() => {
-    if (userInfo) {
-      setUpdatedInfo({
-        name: userInfo.name || "",
-        surname: userInfo.surname || "",
-        title: userInfo.title || "",
-        area: userInfo.area || "",
-      });
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
+  };
+
+  const handleSave = async () => {
+    if (!userInfo?._id) {
+      alert("Errore: ID utente non trovato!");
+      return;
     }
-  }, [userInfo]);
+
+    const profileData = {
+      name: formData.name,
+      surname: formData.surname,
+      title: formData.title,
+      area: formData.area
+    };
+
+    console.log(profileData);
+    console.log(selectedFile);
+    dispatch(updateProfile(profileData));
+    dispatch(uploadProfileImage(userInfo._id, selectedFile));
+    handleClose();
+  };
 
   return (
     <>
       {userInfo && (
-        <Container
-          className="pb-4 rounded"
-          style={{ backgroundColor: "white" }}
-        >
+        <Container className="pb-4 rounded" style={{ backgroundColor: "white" }}>
           {/* modal per modificare le info del profile */}
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -75,74 +82,30 @@ const Hero = () => {
             </Modal.Header>
             <Modal.Body>
               <Form>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                   <Form.Label>Nome*</Form.Label>
-                  <Form.Control
-                    type="text"
-                    autoFocus
-                    value={updatedInfo.name}
-                    onChange={(e) =>
-                      setUpdatedInfo({ ...updatedInfo, name: e.target.value })
-                    }
-                  />
+                  <Form.Control type="text" name="name" value={formData.name || ""} onChange={handleInputChange} />
                 </Form.Group>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                   <Form.Label>Cognome*</Form.Label>
-                  <Form.Control
-                    type="text"
-                    autoFocus
-                    value={updatedInfo.surname}
-                    onChange={(e) =>
-                      setUpdatedInfo({
-                        ...updatedInfo,
-                        surname: e.target.value,
-                      })
-                    }
-                  />
+                  <Form.Control type="text" name="surname" value={formData.surname || ""} onChange={handleInputChange} />
                 </Form.Group>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                   <Form.Label>Sommario*</Form.Label>
-                  <Form.Control
-                    type="text"
-                    autoFocus
-                    value={updatedInfo.title}
-                    onChange={(e) =>
-                      setUpdatedInfo({ ...updatedInfo, title: e.target.value })
-                    }
-                  />
+                  <Form.Control type="text" name="title" value={formData.title || ""} onChange={handleInputChange} />
                 </Form.Group>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                   <Form.Label>Città*</Form.Label>
-                  <Form.Control
-                    type="text"
-                    autoFocus
-                    value={updatedInfo.area}
-                    onChange={(e) =>
-                      setUpdatedInfo({ ...updatedInfo, area: e.target.value })
-                    }
-                  />
+                  <Form.Control type="text" name="area" value={formData.area || ""} onChange={handleInputChange} />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label>Carica Immagine</Form.Label>
+                  <Form.Control type="file" onChange={handleFileChange} />
                 </Form.Group>
               </Form>
             </Modal.Body>
             <Modal.Footer>
-              <Button
-                variant="primary"
-                onClick={() => {
-                  dispatch(updateProfile(updatedInfo));
-                }}
-              >
+              <Button variant="primary" onClick={handleSave}>
                 Salva
               </Button>
             </Modal.Footer>
@@ -156,7 +119,7 @@ const Hero = () => {
               backgroundSize: "cover",
               backgroundPosition: "center",
               height: "200px",
-              position: "relative",
+              position: "relative"
             }}
           >
             <Image
@@ -168,7 +131,7 @@ const Hero = () => {
                 position: "absolute",
                 left: "30px",
                 top: "90px",
-                cursor: "pointer",
+                cursor: "pointer"
               }}
             />
 
@@ -179,7 +142,7 @@ const Hero = () => {
                   width: "40px",
                   height: "40px",
                   backgroundColor: "white",
-                  cursor: "pointer",
+                  cursor: "pointer"
                 }}
               >
                 <CameraFill style={{ width: "20px", height: "20px" }} />
@@ -189,10 +152,7 @@ const Hero = () => {
           <Row className="mt-3">
             <Col className="d-flex justify-content-end">
               {/* all'onclick della pencil si apre il modal per gestire le info dello user  */}
-              <Pencil
-                style={{ width: "25px", height: "25px", cursor: "pointer" }}
-                onClick={handleShow}
-              />
+              {props.flag && <Pencil style={{ width: "25px", height: "25px", cursor: "pointer" }} onClick={handleEdit} />}
             </Col>
           </Row>
           <Row className="mt-3">
@@ -203,11 +163,7 @@ const Hero = () => {
                   {userInfo.name} {userInfo.surname}
                 </Col>
                 <Col className="d-flex align-items-center">
-                  <Button
-                    variant="outline-primary"
-                    className="rounded-pill"
-                    style={{ borderStyle: "dashed" }}
-                  >
+                  <Button variant="outline-primary" className="rounded-pill" style={{ borderStyle: "dashed" }}>
                     <ShieldCheck className="me-2" /> Aggiungi badge di verifica
                   </Button>
                 </Col>
@@ -233,10 +189,7 @@ const Hero = () => {
                 experiences.slice(0, 2).map((exp) => (
                   <Row className="d-flex mb-2 align-items-center" key={exp._id}>
                     <Col className="d-flex justify-content-end">
-                      <Image
-                        src="https://media.licdn.com/dms/image/v2/C4E0BAQHYgix-Ynux1A/company-logo_100_100/company-logo_100_100/0/1646830188798/epicodeschool_logo?e=1742428800&amp;v=beta&amp;t=1545nc7H976MH9PquSOoKQx-4ziZtAD1DU3H-k2vuig"
-                        style={{ width: "40px", height: "40px" }}
-                      />
+                      <Image src={exp.image} style={{ width: "40px", height: "40px" }} />
                     </Col>
                     <Col>
                       <p className="fs-5 fw-semibold">{exp.company}</p>
@@ -247,31 +200,16 @@ const Hero = () => {
           </Row>
           <Row className="d-flex">
             <Col>
-              <Button
-                variant="primary"
-                className="rounded-pill mt-2 me-2 px-3"
-                onClick={() => {
-                  dispatch(updateProfileHero(userInfo.id));
-                }}
-              >
+              <Button variant="primary" className="rounded-pill mt-2 me-2 px-3">
                 Disponibili per
               </Button>
-              <Button
-                variant="outline-primary"
-                className="rounded-pill mt-2 me-2 px-3"
-              >
+              <Button variant="outline-primary" className="rounded-pill mt-2 me-2 px-3">
                 Aggiungi sezione del profilo
               </Button>
-              <Button
-                variant="outline-primary"
-                className="rounded-pill mt-2 me-2 px-3"
-              >
+              <Button variant="outline-primary" className="rounded-pill mt-2 me-2 px-3">
                 Migliora profilo
               </Button>
-              <Button
-                variant="outline-secondary"
-                className="rounded-pill mt-2 px-3"
-              >
+              <Button variant="outline-secondary" className="rounded-pill mt-2 px-3">
                 Risorse
               </Button>
             </Col>
@@ -281,10 +219,7 @@ const Hero = () => {
               <Row className="slider-card mx-0 border border-light-subtle rounded p-2 d-flex">
                 <Col className="d-flex flex-column ">
                   <p className="mb-0">
-                    <span className="fw-bold">
-                      Mostra ai recruiter che sei disponibile a lavorare:
-                    </span>{" "}
-                    sei tu a decidere chi può vedere questa informazione
+                    <span className="fw-bold">Mostra ai recruiter che sei disponibile a lavorare:</span> sei tu a decidere chi può vedere questa informazione
                   </p>
                   <p className="text-primary" style={{ cursor: "pointer" }}>
                     Inizia
@@ -297,10 +232,7 @@ const Hero = () => {
               <Row className="slider-card mx-0 border border-light-subtle rounded p-2 d-flex">
                 <Col className="d-flex flex-column ">
                   <p className="mb-0">
-                    <span className="fw-bold">
-                      Fai sapere che stai facendo selezione
-                    </span>{" "}
-                    e attrai candidati qualificati.
+                    <span className="fw-bold">Fai sapere che stai facendo selezione</span> e attrai candidati qualificati.
                   </p>
                   <p className="text-primary" style={{ cursor: "pointer" }}>
                     Inizia
@@ -313,11 +245,7 @@ const Hero = () => {
               <Row className="slider-card mx-0 border border-light-subtle rounded p-2 d-flex">
                 <Col className="d-flex flex-column ">
                   <p className="mb-0">
-                    <span className="fw-bold">
-                      Metti in risalto i tuoi servizi
-                    </span>{" "}
-                    in un&apos;apposita sezione sul tuo profilo, così sarà più
-                    facile trovarti.
+                    <span className="fw-bold">Metti in risalto i tuoi servizi</span> in un&apos;apposita sezione sul tuo profilo, così sarà più facile trovarti.
                   </p>
                   <p className="text-primary" style={{ cursor: "pointer" }}>
                     Inizia

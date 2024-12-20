@@ -4,23 +4,20 @@ export const UPDATE_PROFILE_HERO = "UPDATE_PROFILE_HERO"; // azione che aggiorna
 
 export const fillProfileHero = (userInfo) => ({
   type: FILL_PROFILE_HERO,
-  payload: userInfo,
+  payload: userInfo
 });
 export const updateProfileHero = (updatedUserInfo) => ({
   type: UPDATE_PROFILE_HERO,
-  payload: updatedUserInfo,
+  payload: updatedUserInfo
 });
 
 // fetch per riempire la sezione hero con i dati dello user
 export const fetchProfile = (id) => {
   return async (dispatch) => {
     try {
-      const response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/profile/" + id,
-        {
-          headers: { Authorization: tokenAPI },
-        }
-      );
+      const response = await fetch("https://striveschool-api.herokuapp.com/api/profile/" + id, {
+        headers: { Authorization: tokenAPI }
+      });
       if (response.ok) {
         const data = await response.json();
         dispatch(fillProfileHero(data));
@@ -33,21 +30,18 @@ export const fetchProfile = (id) => {
   };
 };
 
-// fetch per aggiornare la sezione dell'hero
+// fetch PUT per aggiornare la sezione dell'hero
 export const updateProfile = (updatedInfo) => {
   return async (dispatch) => {
     try {
-      const response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/profile",
-        {
-          method: "PUT",
-          headers: {
-            Authorization: tokenAPI,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(updatedInfo),
-        }
-      );
+      const response = await fetch("https://striveschool-api.herokuapp.com/api/profile", {
+        method: "PUT",
+        headers: {
+          Authorization: tokenAPI,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(updatedInfo)
+      });
       if (response.ok) {
         const data = await response.json();
         dispatch(updateProfileHero(data));
@@ -56,6 +50,39 @@ export const updateProfile = (updatedInfo) => {
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+};
+
+export const uploadProfileImage = (userId, imageFile) => {
+  return async (dispatch) => {
+    if (!imageFile) {
+      console.warn("Nessuna immagine selezionata, salta la POST.");
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append("profile", imageFile);
+      console.log(formData);
+
+      const response = await fetch(`https://striveschool-api.herokuapp.com/api/profile/${userId}/picture`, {
+        method: "POST",
+        headers: {
+          Authorization: tokenAPI
+        },
+        body: formData
+      });
+
+      if (response.ok) {
+        console.log("Immagine caricata con successo");
+      } else {
+        console.error("Errore durante il caricamento dell'immagine del profilo");
+      }
+      const data = await response.json();
+      dispatch(updateProfileHero(data));
+    } catch (error) {
+      console.error("Errore nella richiesta POST:", error);
     }
   };
 };

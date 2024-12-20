@@ -30,11 +30,7 @@ function SideBarLeft() {
               <Card.Text className="fw-bold d-flex">
                 {experiences.length > 0 && (
                   <>
-                    <Image
-                      style={{ height: "30px", width: "30px", objectFit: "cover" }}
-                      roundedCircle
-                      src="https://media.licdn.com/dms/image/v2/C4E0BAQHYgix-Ynux1A/company-logo_100_100/company-logo_100_100/0/1646830188798/epicodeschool_logo?e=1742428800&amp;v=beta&amp;t=1545nc7H976MH9PquSOoKQx-4ziZtAD1DU3H-k2vuig"
-                    />
+                    <Image style={{ height: "30px", width: "30px", objectFit: "cover" }} roundedCircle src={experiences[0].image} />
                     <span className="ms-2">{experiences[0].company}</span>
                   </>
                 )}
