@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Col, Container, Image, ListGroup, Row } from "react-bootstrap";
 import { ArrowRight, Linkedin, X } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,11 +7,17 @@ import { Link, useParams } from "react-router-dom";
 
 const JobFromSearch = () => {
   const { jobToSearch } = useParams();
-  const dispatch = useDispatch();
+
+  const [activeJobId, setActiveJobId] = useState(null);
 
   // Array che contiente le info del job dal search
   const jobsFromSearch = useSelector((state) => state.jobMoreChance.content.data);
   const jobsFromSearchReversed = Array.isArray(jobsFromSearch) ? jobsFromSearch.slice().reverse().slice(0, 12) : [];
+
+  // Funzione che gestisce se mostrare o meno la descrizione del job
+  const toggleDescription = (jobId) => {
+    setActiveJobId((prevJobId) => (prevJobId === jobId ? null : jobId));
+  };
 
   return (
     <Container style={{ marginTop: "90px" }}>
@@ -23,10 +30,7 @@ const JobFromSearch = () => {
                   Offerte di lavoro per: <span className="text-primary">{jobToSearch}</span>
                 </Col>
               </Row>
-              <Row className="text-secondary">
-                {" "}
-                <Col>{jobsFromSearch.length} risultati</Col>
-              </Row>
+              <Row className="text-secondary"> {jobsFromSearch && <Col>{jobsFromSearch.length} risultati</Col>}</Row>
             </ListGroup.Item>
 
             {jobsFromSearch &&
@@ -34,7 +38,12 @@ const JobFromSearch = () => {
               jobsFromSearchReversed.map((job) => (
                 <ListGroup.Item key={job._id}>
                   <Row className="mt-2 me-1">
-                    <Col className="col-10">
+                    <Col
+                      className="col-10"
+                      onClick={() => {
+                        toggleDescription(job._id);
+                      }}
+                    >
                       <Row className="align-items-start ms-2">
                         <Col sm={4} lg={3}>
                           <Image
@@ -69,6 +78,13 @@ const JobFromSearch = () => {
                       <X className="fs-3" style={{ cursor: "pointer" }} />
                     </Col>
                   </Row>
+                  {activeJobId === job._id && (
+                    <Row className="mt-2">
+                      <Col>
+                        <div dangerouslySetInnerHTML={{ __html: job.description }}></div>
+                      </Col>
+                    </Row>
+                  )}
                 </ListGroup.Item>
               ))}
             <ListGroup.Item>
