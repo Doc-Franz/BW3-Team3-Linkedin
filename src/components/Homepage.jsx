@@ -7,6 +7,7 @@ import { fetchProfile } from "../redux/actions/profileActions";
 import SideBarLeft from "./SideBarLeft";
 import SidebarRightHomepage from "./SidebarRightHomepage";
 import Footer from "./Footer";
+import CardPost from "./CardPost";
 
 const Homepage = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const Homepage = () => {
             <SideBarLeft />
           </Col>
           <Col md={6}>
+            <CardPost />
             {postHomepage.length > 0 &&
               postHomepageReversed.map((post) => (
                 <Card className="mt-3" key={post._id}>
