@@ -82,18 +82,18 @@ function CardPost() {
               cursor: "pointer"
             }}
           >
-            <i className="bi bi-image text-black me-1"></i> Contenuti multimediali
+            <i className="bi bi-image text-primary me-1"></i> Contenuti multimediali
             <Form.Control type="file" style={{ display: "none" }} onChange={handleFileChange} />
           </Form.Label>
         </Col>
         <Col>
           <button type="button" className="btn btn-link text-black fw-bold text-decoration-none">
-            <i className="bi bi-calendar3 text-black"></i> Evento
+            <i className="bi bi-calendar3 cuadro"></i> Evento
           </button>
         </Col>
         <Col>
           <button type="button" className="btn btn-link text-black fw-bold text-decoration-none">
-            <i className="bi bi-layout-text-window-reverse text-black"></i> Scrivi un articolo
+            <i className="bi bi-layout-text-window-reverse cuadro"></i> Scrivi un articolo
           </button>
         </Col>
       </Row>
